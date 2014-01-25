@@ -72,6 +72,18 @@ public class Lista {
         agregarFinal(crearNodo(a));
     }
 
+    public Lista asiganturasConCreditos(int c) {
+        Lista lista = new Lista();
+        Nodo x = cab;
+        while (null != x) {
+            if (c == x.asign.getCreditos()) {
+                lista.agregarFinal(x);
+            }
+            x = x.sig;
+        }
+        return lista;
+    }
+    
     public Nodo buscarPorCodigo(String cod) {
         Nodo x = cab;
         while (null != x && !x.asign.getCodigo().equalsIgnoreCase(cod)) {

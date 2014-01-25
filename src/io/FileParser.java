@@ -1,6 +1,8 @@
 
 package io;
 
+import java.io.File;
+
 import matr.Asignatura;
 import matr.Lista;
 import matr.Periodo;
@@ -11,7 +13,16 @@ import matr.Periodo;
  */
 public class FileParser {
     
+    private Periodo actual;
+    private Periodo anterior;
+
+    public FileParser(File file) {
+        
+    }
     
+    public FileParser(String pathName) {
+        this(new File(pathName));
+    }
     
     public Asignatura creaAsignatura(String linea) {
         String[] p = linea.split(":");

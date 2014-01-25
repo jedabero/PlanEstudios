@@ -32,10 +32,9 @@ public class Periodo {
             x = x.sig;
         }
         p /= ta;
-
         totalCreditos = tc;
         totalAsignaturas = ta;
-        promedio = p;
+        promedio = Math.rint(p*100)/100;
 
     }
 
