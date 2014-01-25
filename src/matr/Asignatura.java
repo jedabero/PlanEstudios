@@ -7,15 +7,16 @@ package matr;
 public class Asignatura {
 
     private boolean puedeMatr;
-    private boolean matriculada;
-    private String periodo;
-
+    
     private String nombre;
     private String codigo;
     private int creditos;
     private double calificacion;
     private boolean aprobada;
 
+    private boolean matriculada;
+    private String periodo;
+    
     private Asignatura requisito;
     private Asignatura corequisito;
 
@@ -147,14 +148,10 @@ public class Asignatura {
     
     @Override
     public String toString() {
-        return nombre + ":" + codigo
-                + " {\n\tCreditos: " + creditos
-                + "\n\tRequisito: " + ((requisito != null) ? requisito.codigo : "No")
-                + "\n\tCorequisito: " + ((corequisito != null) ? corequisito.codigo : "No")
-                + "\n\tCalificacion: " + calificacion
-                + "\n\tPuede: " + puedeMatr
-                + "\n\tMatriculada: " + matriculada + "\n\tAprobada: " + aprobada
-                + "\n\tPeriodo: " + periodo + "\n}";
+        return "{"+nombre + ":" + codigo + ":" + creditos
+                + ":" + ((requisito != null) ? requisito.codigo : "No")
+                + ":" + ((corequisito != null) ? corequisito.codigo : "No")
+                + ":" + calificacion + ":" + matriculada + ":" + periodo +  "}";
     }
 
 }
