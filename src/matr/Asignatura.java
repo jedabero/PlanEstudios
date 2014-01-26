@@ -11,7 +11,7 @@ public class Asignatura {
     private String nombre;
     private String codigo;
     private int creditos;
-    private double calificacion;
+    private double nota;
     private boolean aprobada;
 
     private boolean matriculada;
@@ -29,18 +29,18 @@ public class Asignatura {
      * @param periodo the value of periodo
      * @param requisito the value of requisito
      * @param corequisito the value of corequisito
-     * @param calificacion the value of calificacion
+     * @param nota the value of nota
      */
-    public Asignatura(String nombre, String codigo, int creditos, String periodo, Asignatura requisito, Asignatura corequisito, double calificacion) {
+    public Asignatura(String nombre, String codigo, int creditos, String periodo, Asignatura requisito, Asignatura corequisito, double nota) {
         this.periodo = periodo;
         this.nombre = nombre;
         this.codigo = codigo;
         this.creditos = creditos;
-        this.calificacion = calificacion;
+        this.nota = nota;
         this.requisito = requisito;
         this.corequisito = corequisito;
 
-        aprobada = calificacion >= 3.0;
+        aprobada = nota >= 3.0;
         puedeMatr = aprobada ? false : ((null != requisito) ? requisito.aprobada : true);
 
     }
@@ -65,7 +65,7 @@ public class Asignatura {
     }
 
     public void updateAprobada() {
-        this.aprobada = calificacion >= 3.0;
+        this.aprobada = nota >= 3.0;
     }
 
     public boolean isMatriculada() {
@@ -73,7 +73,7 @@ public class Asignatura {
     }
 
     public void setMatriculada(boolean matriculada) {
-        this.matriculada = matriculada;
+        this.matriculada = puedeMatr?matriculada:false;
     }
 
     public String getPeriodo() {
@@ -108,12 +108,12 @@ public class Asignatura {
         this.creditos = creditos;
     }
 
-    public double getCalificacion() {
-        return calificacion;
+    public double getNota() {
+        return nota;
     }
 
-    public void setCalificacion(double calificacion) {
-        this.calificacion = calificacion;
+    public void setNota(double nota) {
+        this.nota = nota;
         updateAprobada();
     }
 
@@ -148,10 +148,10 @@ public class Asignatura {
     
     @Override
     public String toString() {
-        return "{"+nombre + ":" + codigo + ":" + creditos
+        return "{"+nombre + ":" + codigo + ":" + creditos + ":" + periodo
                 + ":" + ((requisito != null) ? requisito.codigo : "No")
                 + ":" + ((corequisito != null) ? corequisito.codigo : "No")
-                + ":" + calificacion + ":" + matriculada + ":" + periodo +  "}";
+                + ":" + nota + ":" + matriculada +  "}";
     }
 
 }

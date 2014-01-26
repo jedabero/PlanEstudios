@@ -27,7 +27,7 @@ public class Periodo {
         Lista.Nodo x = lista.getCab();
         while (null != x) {
             tc += x.asign.getCreditos();
-            p += x.asign.getCalificacion();
+            p += x.asign.getNota();
             ta++;
             x = x.sig;
         }
@@ -61,7 +61,7 @@ public class Periodo {
 
     @Override
     public String toString() {
-        return "["+lista+"]";
+        return "["+lista;
     }
 
 }
