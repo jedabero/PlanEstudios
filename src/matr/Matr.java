@@ -33,7 +33,7 @@ public class Matr {
         System.out.println(p.getPromedio() + "<--Promedio");
 
         System.out.println(p);
-        
+
     }
 
 }

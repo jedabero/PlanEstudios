@@ -1,7 +1,6 @@
 package io;
 
 import java.io.File;
-import java.util.regex.Pattern;
 
 import matr.Asignatura;
 import matr.Lista;
@@ -17,7 +16,8 @@ public class FileParser {
     private Periodo anterior;
 
     public FileParser(File file) {
-
+        
+        
     }
 
     public FileParser(String pathName) {
@@ -42,7 +42,7 @@ public class FileParser {
     }
 
     public Periodo creaPeriodo(String linea) {
-        if (null != linea && linea.isEmpty()) {
+        if (null != linea && !linea.isEmpty()) {
             linea = linea.substring(1, linea.length()-1);
             String[] p = linea.split("\n");
             Lista l = new Lista();

@@ -6,8 +6,8 @@ package matr;
  */
 public class Lista {
 
-    private Nodo cab;
-    private Nodo fin;
+    private Nodo<Asignatura> cab;
+    private Nodo<Asignatura> fin;
 
     public Lista() {
     }
@@ -24,32 +24,12 @@ public class Lista {
         return new Nodo(a);
     }
 
-    public class Nodo {
-
-        public Asignatura asign;
-        public Nodo ant;
-        public Nodo sig;
-
-        Nodo() {
-        }
-
-        Nodo(Asignatura asignatura) {
-            this.asign = asignatura;
-        }
-
-        @Override
-        public String toString() {
-            return asign.toString();
-        }
-
-    }
-
-    public void agregarCabecera(Nodo p) {
+    public void agregarCabecera(Nodo<Asignatura> p) {
         if (vacio()) {
             fin = p;
         } else {
-            cab.ant = p;
-            p.sig = cab;
+            cab.setAnt(p);
+            p.setSig(cab);
         }
         cab = p;
     }
@@ -62,8 +42,8 @@ public class Lista {
         if (vacio()) {
             cab = p;
         } else {
-            fin.sig = p;
-            p.ant = fin;
+            fin.setSig(p);
+            p.setAnt(fin);
         }
         fin = p;
     }
@@ -74,35 +54,35 @@ public class Lista {
 
     public Lista asiganturasConCreditos(int c) {
         Lista lista = new Lista();
-        Nodo x = cab;
+        Nodo<Asignatura> x = cab;
         while (null != x) {
-            if (c == x.asign.getCreditos()) {
+            if (c == x.getItem().getCreditos()) {
                 lista.agregarFinal(x);
             }
-            x = x.sig;
+            x = x.getSig();
         }
         return lista;
     }
     
-    public Nodo buscarPorCodigo(String cod) {
-        Nodo x = cab;
-        while (null != x && !x.asign.getCodigo().equalsIgnoreCase(cod)) {
-            x = x.sig;
+    public Nodo<Asignatura> buscarPorCodigo(String cod) {
+        Nodo<Asignatura> x = cab;
+        while (null != x && !x.getItem().getCodigo().equalsIgnoreCase(cod)) {
+            x = x.getSig();
         }
         return x;
     }
 
     public Asignatura buscarAsignaturaPorCod(String cod) {
-        return buscarPorCodigo(cod).asign;
+        return buscarPorCodigo(cod).getItem();
     }
 
-    public void agregarDespuesDe(Nodo nuevo, Asignatura vieja) throws Exception {
-        Nodo x = buscarPorCodigo(vieja.getCodigo());
+    public void agregarDespuesDe(Nodo<Asignatura> nuevo, Asignatura vieja) throws Exception {
+        Nodo<Asignatura> x = buscarPorCodigo(vieja.getCodigo());
         if (null != x) {
-            Nodo z = x.sig;
-            x.sig = nuevo;
-            nuevo.sig = z;
-            z.ant = nuevo;
+            Nodo<Asignatura> z = x.getSig();
+            x.setSig(nuevo);
+            nuevo.setSig(z);
+            z.setAnt(nuevo);
         } else {
             throw new Exception("No existe la asignatura buscada.");
         }
@@ -120,8 +100,8 @@ public class Lista {
                 cab = null;
                 fin = null;
             } else {
-                cab = cab.sig;
-                cab.ant = null;
+                cab = cab.getSig();
+                cab.setAnt(null);
             }
             return true;
         }
@@ -135,8 +115,8 @@ public class Lista {
                 cab = null;
                 fin = null;
             } else {
-                fin = fin.ant;
-                fin.sig = null;
+                fin = fin.getAnt();
+                fin.setSig(null);
             }
             return true;
         }
@@ -149,13 +129,13 @@ public class Lista {
             } else if (fin == y) {
                 return eliminarFinal();
             } else {
-                Nodo x = y.ant;
-                Nodo z = y.sig;
-                y.ant = null;
-                y.sig = null;
+                Nodo x = y.getAnt();
+                Nodo z = y.getSig();
+                y.setAnt(null);
+                y.setSig(null);
                 y = null;
-                x.sig = z;
-                z.ant = y;
+                x.setSig(z);
+                z.setAnt(y);
                 return true;
             }
         } else {
@@ -171,6 +151,10 @@ public class Lista {
         return cab;
     }
 
+    public Nodo<Asignatura> getFin() {
+        return fin;
+    }
+
     @Override
     public String toString() {
         String m = "\n";
@@ -180,7 +164,7 @@ public class Lista {
             Nodo x = cab;
             while (null != x) {
                 m += x + "\n";
-                x = x.sig;
+                x = x.getSig();
             }
         }
         return m;

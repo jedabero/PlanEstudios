@@ -24,12 +24,12 @@ public class Periodo {
         int tc = 0;
         int ta = 0;
         double p = 0d;
-        Lista.Nodo x = lista.getCab();
+        Nodo<Asignatura> x = lista.getCab();
         while (null != x) {
-            tc += x.asign.getCreditos();
-            p += x.asign.getNota();
+            tc += x.getItem().getCreditos();
+            p += x.getItem().getNota();
             ta++;
-            x = x.sig;
+            x = x.getSig();
         }
         p /= ta;
         totalCreditos = tc;
