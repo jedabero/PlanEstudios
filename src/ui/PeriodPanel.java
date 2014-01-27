@@ -19,7 +19,7 @@ public class PeriodPanel extends JPanel {
     public PeriodPanel(Periodo periodo) {
         super();
         this.periodo = periodo;
-        Nodo<Asignatura> x = periodo.getLista().getCab();
+        Nodo<Asignatura> x = periodo.getCab();
         setSize(150 * periodo.getTotalAsignaturas() + 100, 120);
         while (null != x) {
             add(new AsignPanel(this, x.getItem()));

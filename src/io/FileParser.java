@@ -3,7 +3,6 @@ package io;
 import java.io.File;
 
 import matr.Asignatura;
-import matr.Lista;
 import matr.Periodo;
 
 /**
@@ -29,8 +28,8 @@ public class FileParser {
             linea = linea.substring(1, linea.length()-1);
             String[] p = linea.split(":");
             int cred = Integer.parseInt(p[2]);
-            Asignatura req = anterior.getLista().buscarAsignaturaPorCod(p[4]);
-            Asignatura coreq = actual.getLista().buscarAsignaturaPorCod(p[5]);
+            Asignatura req = anterior.buscarAsignaturaPorCod(p[4]);
+            Asignatura coreq = actual.buscarAsignaturaPorCod(p[5]);
             double calif = Double.parseDouble(p[6]);
             boolean matr = Boolean.parseBoolean(p[7]);
             Asignatura asign = new Asignatura(p[0], p[1], cred, p[3], req, coreq, calif);
@@ -45,14 +44,14 @@ public class FileParser {
         if (null != linea && !linea.isEmpty()) {
             linea = linea.substring(1, linea.length()-1);
             String[] p = linea.split("\n");
-            Lista l = new Lista();
+            Periodo l = new Periodo(p[0]);
             for (String s : p) {
                 try {
                     Asignatura a  = creaAsignatura(s);
                     l.agregarFinal(a);
                 } catch (Exception e) { }
             }
-            return (!l.vacio())? new Periodo(l) : null;
+            return l;
         } else {
             return null;
         }

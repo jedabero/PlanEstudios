@@ -19,7 +19,7 @@ public class AsignPanel extends CustomPanel {
         this.asign = asign;
 
         if (!asign.puedeMatr() && !asign.isAprobada()) {
-            setBackground(Color.red);
+            setBackground(new Color(200,200,200));
         }
     }
 

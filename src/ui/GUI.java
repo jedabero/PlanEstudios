@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import matr.Asignatura;
-import matr.Lista;
 import matr.Periodo;
 
 /**
@@ -40,7 +39,7 @@ public class GUI {
         Asignatura c = new Asignatura(true, "III", "Matematicas 3", "100T3", 2, b, null);
         Asignatura cc = new Asignatura(true, "III", "Matematicas Lab", "100L3", 1, null, c);
 
-        Lista lista = new Lista();
+        Periodo lista = new Periodo();
 
         lista.agregarCabecera(a);
         lista.agregarCabecera(b);
@@ -52,12 +51,10 @@ public class GUI {
 
         lista.agregarFinal(cc);
 
-        Periodo p = new Periodo(lista);
-
-        PeriodPanel pp = new PeriodPanel(p);
-        PeriodPanel pp2 = new PeriodPanel(p);
-        PeriodPanel pp3 = new PeriodPanel(p);
-        PeriodPanel pp4 = new PeriodPanel(p);
+        PeriodPanel pp = new PeriodPanel(lista);
+        PeriodPanel pp2 = new PeriodPanel(lista);
+        PeriodPanel pp3 = new PeriodPanel(lista);
+        PeriodPanel pp4 = new PeriodPanel(lista);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

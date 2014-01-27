@@ -15,19 +15,18 @@ public class Matr {
         Asignatura c = new Asignatura(true, "III", "Matematicas 3", "100T3", 2, b, null);
         Asignatura cc = new Asignatura(true, "III", "Matematicas Lab", "100L3", 1, null, c);
 
-        Lista lista = new Lista();
+        Periodo p = new Periodo("this");
 
-        lista.agregarCabecera(a);
-        lista.agregarCabecera(b);
+        p.agregarCabecera(a);
+        p.agregarCabecera(b);
         try {
-            lista.agregarDespuesDe(c, b);
+            p.agregarDespuesDe(c, b);
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        lista.agregarFinal(cc);
+        p.agregarFinal(cc);
 
-        Periodo p = new Periodo(lista);
         System.out.println(p.getTotalCreditos() + "<--Cred");
         System.out.println(p.getTotalAsignaturas() + "<--Asign");
         System.out.println(p.getPromedio() + "<--Promedio");
