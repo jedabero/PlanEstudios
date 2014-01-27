@@ -165,6 +165,7 @@ public class Periodo {
     private String nombre;
     
     public Periodo() {
+        this("N/A");
     }
 
     public Periodo(String n) {

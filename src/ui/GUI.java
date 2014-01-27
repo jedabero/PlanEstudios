@@ -35,9 +35,11 @@ public class GUI {
         panel.setBorder(BorderFactory.createLineBorder(Color.red));
 
         Asignatura a = new Asignatura("Matematicas", "10001", 2, "I", null, null, 4);
-        Asignatura b = new Asignatura("Matematicas 2", "10002", 2, "II", a, null, 2.5);
-        Asignatura c = new Asignatura(true, "III", "Matematicas 3", "100T3", 2, b, null);
-        Asignatura cc = new Asignatura(true, "III", "Matematicas Lab", "100L3", 1, null, c);
+        Asignatura b = new Asignatura("Matematicas 2", "10002", 2, "II", a, null, 3);
+        Asignatura c = new Asignatura("Matematicas 3", "100T3", 3, "II", b, null, 0);
+        Asignatura cc = new Asignatura("Matematicas Lab", "100L2", 2, "II", null, c, 0);
+        
+        if(b.isAprobada()){c.setMatriculada(true);cc.setMatriculada(true);}
 
         Periodo lista = new Periodo();
 

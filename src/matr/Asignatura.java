@@ -73,7 +73,7 @@ public class Asignatura {
     }
 
     public void setMatriculada(boolean matriculada) {
-        this.matriculada = puedeMatr?matriculada:false;
+        this.matriculada = (puedeMatr && matriculada);
     }
 
     public String getPeriodo() {
