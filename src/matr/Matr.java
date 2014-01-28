@@ -1,5 +1,10 @@
 package matr;
 
+import io.FileParser;
+import io.IO;
+
+import java.io.IOException;
+
 /**
  *
  * @author jedabero
@@ -36,6 +41,17 @@ public class Matr {
         plan.agregarPrimero(p);
         System.out.println(plan);
 
+        
+        FileParser fp;
+        try {
+            fp = new FileParser(IO.USER.p+IO.SEPARATOR.p+"matr"+IO.SEPARATOR.p+"asd.pln");
+        } catch (IOException ioe) {
+            ioe.printStackTrace(System.err);
+            fp = null;
+        }
+        
+        
+        
     }
 
 }

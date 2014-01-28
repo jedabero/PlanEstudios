@@ -19,8 +19,14 @@ public class Estudiante {
         this.programa = programa;
     }
 
-    public Estudiante(String...a) {
-        this(a[0],a[1],a[2]);
+    public Estudiante(String...a) throws Exception{
+        if (a.length>2) {
+            nombre = a[0];
+            id = a[1];
+            programa = a[2];
+        } else {
+            throw new Exception("Array incompatible");
+        }
     }
     
     public Estudiante() {
