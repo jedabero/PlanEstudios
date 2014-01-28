@@ -55,12 +55,12 @@ public class Plan {
     }
     
     
-    public Lista periodosConCreditos(int c) {
-        Lista lista = new Lista();
+    public Plan periodosConCreditos(int c) {
+        Plan lista = new Plan();
         Nodo<Periodo> x = pri;
         while (null != x) {
             if (c == x.getItem().getTotalCreditos()) {
-                lista.agregarFinal(x);
+                lista.agregarUltimo(x);
             }
             x = x.getSig();
         }

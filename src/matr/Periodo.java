@@ -52,7 +52,7 @@ public class Periodo {
     }
 
     public Periodo asiganturasConCreditos(int c) {
-        Periodo lista = new Lista();
+        Periodo lista = new Periodo();
         Nodo<Asignatura> x = cab;
         while (null != x) {
             if (c == x.getItem().getCreditos()) {
