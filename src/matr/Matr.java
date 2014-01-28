@@ -15,7 +15,7 @@ public class Matr {
         Asignatura c = new Asignatura(true, "III", "Matematicas 3", "100T3", 2, b, null);
         Asignatura cc = new Asignatura(true, "III", "Matematicas Lab", "100L3", 1, null, c);
 
-        Periodo p = new Periodo("this");
+        Periodo p = new Periodo("VI");
 
         p.agregarCabecera(a);
         p.agregarCabecera(b);
@@ -27,11 +27,11 @@ public class Matr {
 
         p.agregarFinal(cc);
 
-        System.out.println(p.getTotalCreditos() + "<--Cred");
-        System.out.println(p.getTotalAsignaturas() + "<--Asign");
-        System.out.println(p.getPromedio() + "<--Promedio");
-
-        System.out.println(p);
+        Plan plan = new Plan();
+        
+        plan.agregarPrimero(p);
+        
+        System.out.println(plan);
 
     }
 

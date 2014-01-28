@@ -7,11 +7,28 @@ package matr;
  */
 public class Plan {
     
+    public enum tipo{
+        PENSUM,
+        PLAN
+    }
+    
+    private Estudiante est;
+    private tipo tipoPlan;
+    
     private Periodo pri;
     private Periodo ult;
+
+    public Plan() {
+        this(null);
+    }
     
-    public Plan(){
-        
+    public Plan(Estudiante estudiante){
+        if (null != estudiante) {
+            tipoPlan = tipo.PLAN;
+            est = estudiante;
+        } else {
+            tipoPlan = tipo.PENSUM;
+        }
     }
     
     public boolean vacio() {
@@ -135,7 +152,7 @@ public class Plan {
 
     @Override
     public String toString() {
-        String m = "\n";
+        String m = tipoPlan+"\n"+((null!=est)?est:"");
         if (vacio()) {
             m += "vacio";
         } else {
