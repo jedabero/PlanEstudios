@@ -7,8 +7,8 @@ package matr;
  */
 public class Plan {
     
-    private Nodo<Periodo> pri;
-    private Nodo<Periodo> ult;
+    private Periodo pri;
+    private Periodo ult;
     
     public Plan(){
         
@@ -22,11 +22,7 @@ public class Plan {
         return pri == ult;
     }
 
-    public Nodo crearNodo(Periodo a) {
-        return new Nodo(a);
-    }
-
-    public void agregarPrimero(Nodo<Periodo> p) {
+    public void agregarPrimero(Periodo p) {
         if (vacio()) {
             ult = p;
         } else {
@@ -36,11 +32,7 @@ public class Plan {
         pri = p;
     }
 
-    public void agregarPrimero(Periodo a) {
-        agregarPrimero(crearNodo(a));
-    }
-
-    public void agregarUltimo(Nodo p) {
+    public void agregarUltimo(Periodo p) {
         if (vacio()) {
             pri = p;
         } else {
@@ -50,16 +42,11 @@ public class Plan {
         ult = p;
     }
     
-    public void agregarUltimo(Periodo a) {
-        agregarUltimo(crearNodo(a));
-    }
-    
-    
     public Plan periodosConCreditos(int c) {
         Plan lista = new Plan();
-        Nodo<Periodo> x = pri;
+        Periodo x = pri;
         while (null != x) {
-            if (c == x.getItem().getTotalCreditos()) {
+            if (c == x.getTotalCreditos()) {
                 lista.agregarUltimo(x);
             }
             x = x.getSig();
@@ -67,28 +54,24 @@ public class Plan {
         return lista;
     }
     
-    public Nodo<Periodo> buscar(Periodo p) {
-        Nodo<Periodo> x = pri;
-        while (null != x && p != x.getItem()) {
+    public Periodo buscar(Periodo p) {
+        Periodo x = pri;
+        while (null != x && p != x) {
             x = x.getSig();
         }
         return x;
     }
 
-    public void agregarDespuesDe(Nodo<Periodo> nuevo, Periodo viejo) throws Exception {
-        Nodo<Periodo> x = buscar(viejo);
+    public void agregarDespuesDe(Periodo nuevo, Periodo viejo) throws Exception {
+        Periodo x = buscar(viejo);
         if (null != x) {
-            Nodo<Periodo> z = x.getSig();
+            Periodo z = x.getSig();
             x.setSig(nuevo);
             nuevo.setSig(z);
             z.setAnt(nuevo);
         } else {
             throw new Exception("No existe el periodo buscada.");
         }
-    }
-
-    public void agregarDespuesDe(Periodo nuevo, Periodo viejo) throws Exception {
-        agregarDespuesDe(crearNodo(nuevo), viejo);
     }
 
     public boolean eliminarPrimero() {
@@ -121,15 +104,15 @@ public class Plan {
         }
     }
 
-    public boolean eliminar(Nodo y) {
+    public boolean eliminar(Periodo y) {
         if (null != y) {
             if (pri == y) {
                 return eliminarPrimero();
             } else if (ult == y) {
                 return eliminarUltimo();
             } else {
-                Nodo x = y.getAnt();
-                Nodo z = y.getSig();
+                Periodo x = y.getAnt();
+                Periodo z = y.getSig();
                 y.setAnt(null);
                 y.setSig(null);
                 y = null;
@@ -142,15 +125,11 @@ public class Plan {
         }
     }
 
-    public boolean eliminar(Periodo a) {
-        return eliminar(buscar(a));
-    }
-
-    public Nodo<Periodo> getPri() {
+    public Periodo getPri() {
         return pri;
     }
 
-    public Nodo<Periodo> getUlt() {
+    public Periodo getUlt() {
         return ult;
     }
 
@@ -160,7 +139,7 @@ public class Plan {
         if (vacio()) {
             m += "vacio";
         } else {
-            Nodo x = pri;
+            Periodo x = pri;
             while (null != x) {
                 m += x + "\n";
                 x = x.getSig();

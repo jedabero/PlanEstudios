@@ -9,6 +9,9 @@ public class Periodo {
     private Nodo<Asignatura> cab;
     private Nodo<Asignatura> fin;
 
+    private Periodo sig;
+    private Periodo ant;
+    
     public boolean vacio() {
         return cab == null;
     }
@@ -158,6 +161,8 @@ public class Periodo {
         return fin;
     }
     
+    
+    
     private int totalCreditos;
     private int totalAsignaturas;
     private double promedio;
@@ -215,5 +220,29 @@ public class Periodo {
             }
         }
         return m;
+    }
+
+    public Periodo getSig() {
+        return sig;
+    }
+
+    public void setSig(Periodo sig) {
+        this.sig = sig;
+    }
+
+    public Periodo getAnt() {
+        return ant;
+    }
+
+    public void setAnt(Periodo ant) {
+        this.ant = ant;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
