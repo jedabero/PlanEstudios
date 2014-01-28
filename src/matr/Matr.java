@@ -27,10 +27,13 @@ public class Matr {
 
         p.agregarFinal(cc);
 
-        Plan plan = new Plan();
+        Plan plan = new Plan(
+//        /*
+            new Estudiante("Jeison Berdugo", "1234", "Ing. Sist.")
+//        */
+            );
         
         plan.agregarPrimero(p);
-        
         System.out.println(plan);
 
     }

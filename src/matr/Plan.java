@@ -150,9 +150,17 @@ public class Plan {
         return ult;
     }
 
+    public Estudiante getEstudiante() {
+        return est;
+    }
+
+    public void setEstudiante(Estudiante est) {
+        this.est = est;
+    }
+
     @Override
     public String toString() {
-        String m = tipoPlan+"\n"+((null!=est)?est:"");
+        String m = tipoPlan+"\n"+((null!=est)?est:"")+"\n";
         if (vacio()) {
             m += "vacio";
         } else {

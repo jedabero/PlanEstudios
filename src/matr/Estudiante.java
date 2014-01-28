@@ -19,6 +19,14 @@ public class Estudiante {
         this.programa = programa;
     }
 
+    public Estudiante(String...a) {
+        this(a[0],a[1],a[2]);
+    }
+    
+    public Estudiante() {
+        this("N.N.","0","N/A");
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -45,7 +53,7 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return nombre+""+id+""+programa;
+        return nombre+":"+id+":"+programa;
     }
     
 }
