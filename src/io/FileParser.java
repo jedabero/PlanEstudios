@@ -46,8 +46,8 @@ public class FileParser {
 
     public void creaPlan(String linea) {
         if (null != linea && !linea.isEmpty()) {
-            int fl1 = linea.indexOf(IO.FL.p);
-            int fl2 = linea.indexOf(IO.FL.p, fl1 + 1);
+            int fl1 = linea.indexOf(IO.LS.p);
+            int fl2 = linea.indexOf(IO.LS.p, fl1 + 1);
             String q = linea.substring(fl1, fl2).trim();
             plan = new Plan(creaEstudiante(q));
             linea = linea.substring(fl2 + 1).trim();
@@ -79,10 +79,10 @@ public class FileParser {
 
     public Periodo creaPeriodo(String linea) {
         if (null != linea && !linea.isEmpty()) {
-            int fl1 = linea.indexOf(IO.FL.p);
+            int fl1 = linea.indexOf(IO.LS.p);
             String q = linea.substring(0, fl1).trim();
-            linea = linea.substring(fl1, linea.length()-1).trim();
-            String[] p = linea.split(IO.FL.p);
+            linea = linea.substring(fl1, linea.length() - 1).trim();
+            String[] p = linea.split(IO.LS.p);
             actual = new Periodo(q);
             for (String s : p) {
                 try {
@@ -114,8 +114,12 @@ public class FileParser {
                 throw new Exception("Segmento erroneo");
             }
         } else {
-            throw new Exception("Segmento vacio o incompleto: "+linea);
+            throw new Exception("Segmento vacio o incompleto: " + linea);
         }
     }
 
+    public Plan getPlan() {
+        return plan;
+    }
+    
 }

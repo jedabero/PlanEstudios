@@ -1,5 +1,6 @@
 package ui;
 
+import io.FileParser;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import io.IO;
+import java.io.IOException;
 import matr.Asignatura;
 import matr.Periodo;
 
@@ -29,11 +32,26 @@ public class GUI {
     private void start() {
         mainFrame = new JFrame("Matr");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(1016, 638);
+        if(IO.OS.p.contains("Windows")) {
+            mainFrame.setSize(1016, 638);
+        } else if(IO.OS.p.contains("Ubuntu")) {
+            mainFrame.setSize(1010, 638);
+        } else {
+            mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
+        
         panel = new JPanel(new GridBagLayout(), true);
         scroll = new JScrollPane(panel);
         panel.setBorder(BorderFactory.createLineBorder(Color.red));
 
+        FileParser fp;
+        try {
+            fp = new FileParser(IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.pln");
+        } catch (IOException ioe) {
+            ioe.printStackTrace(System.err);
+            fp = null;
+        }
+        
         Asignatura a = new Asignatura("Matematicas", "10001", 2, "I", null, null, 4);
         Asignatura b = new Asignatura("Matematicas 2", "10002", 2, "II", a, null, 3);
         Asignatura c = new Asignatura("Matematicas 3", "100T3", 3, "II", b, null, 0);
