@@ -33,25 +33,22 @@ public class Matr {
         p.agregarFinal(cc);
 
         Plan plan = new Plan(
-//        /*
-            new Estudiante("Jeison Berdugo", "1234", "Ing. Sist.")
-//        */
-            );
-        
+                //        /*
+                new Estudiante("Jeison Berdugo", "1234", "Ing. Sist.")
+        //        */
+        );
+
         plan.agregarPrimero(p);
         System.out.println(plan);
 
-        
         FileParser fp;
         try {
-            fp = new FileParser(IO.USER.p+IO.SEPARATOR.p+"matr"+IO.SEPARATOR.p+"asd.pln");
+            fp = new FileParser(IO.USER.p + IO.SEPARATOR.p + "matr" + IO.SEPARATOR.p + "asd.pln");
         } catch (IOException ioe) {
             ioe.printStackTrace(System.err);
             fp = null;
         }
-        
-        
-        
+
     }
 
 }

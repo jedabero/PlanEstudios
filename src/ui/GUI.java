@@ -38,8 +38,11 @@ public class GUI {
         Asignatura b = new Asignatura("Matematicas 2", "10002", 2, "II", a, null, 3);
         Asignatura c = new Asignatura("Matematicas 3", "100T3", 3, "II", b, null, 0);
         Asignatura cc = new Asignatura("Matematicas Lab", "100L2", 2, "II", null, c, 0);
-        
-        if(b.isAprobada()){c.setMatriculada(true);cc.setMatriculada(true);}
+
+        if (b.isAprobada()) {
+            c.setMatriculada(true);
+            cc.setMatriculada(true);
+        }
 
         Periodo lista = new Periodo();
 

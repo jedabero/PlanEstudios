@@ -11,7 +11,7 @@ public class Periodo {
 
     private Periodo sig;
     private Periodo ant;
-    
+
     public boolean vacio() {
         return cab == null;
     }
@@ -65,7 +65,7 @@ public class Periodo {
         }
         return lista;
     }
-    
+
     public Nodo<Asignatura> buscarPorCodigo(String cod) {
         Nodo<Asignatura> x = cab;
         while (null != x && !x.getItem().getCodigo().equalsIgnoreCase(cod)) {
@@ -160,15 +160,13 @@ public class Periodo {
     public Nodo<Asignatura> getFin() {
         return fin;
     }
-    
-    
-    
+
     private int totalCreditos;
     private int totalAsignaturas;
     private double promedio;
 
     private String nombre;
-    
+
     public Periodo() {
         this("N/A");
     }
@@ -191,7 +189,7 @@ public class Periodo {
         p /= ta;
         totalCreditos = tc;
         totalAsignaturas = ta;
-        promedio = Math.rint(p*100)/100;
+        promedio = Math.rint(p * 100) / 100;
 
     }
 
@@ -206,10 +204,10 @@ public class Periodo {
     public double getPromedio() {
         return promedio;
     }
-    
+
     @Override
     public String toString() {
-        String m = "["+nombre+"\n";
+        String m = "[" + nombre + "\n";
         if (vacio()) {
             m += "vacia";
         } else {

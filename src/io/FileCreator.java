@@ -1,4 +1,3 @@
-
 package io;
 
 import java.io.BufferedWriter;
@@ -8,5 +7,5 @@ import java.io.BufferedWriter;
  * @author Jedabero
  */
 public class FileCreator {
-    
+
 }

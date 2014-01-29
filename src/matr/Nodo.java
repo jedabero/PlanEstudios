@@ -1,4 +1,3 @@
-
 package matr;
 
 /**
@@ -7,14 +6,15 @@ package matr;
  * @param <T>
  */
 public class Nodo<T> {
-    
+
     private T item;
     private Nodo ant;
     private Nodo sig;
-    
-    public Nodo(){}
-    
-    public Nodo(T item){
+
+    public Nodo() {
+    }
+
+    public Nodo(T item) {
         this.item = item;
     }
 
@@ -41,10 +41,10 @@ public class Nodo<T> {
     public void setSig(Nodo sig) {
         this.sig = sig;
     }
-    
+
     @Override
     public String toString() {
         return item.toString();
     }
-    
+
 }

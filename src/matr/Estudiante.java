@@ -1,4 +1,3 @@
-
 package matr;
 
 /**
@@ -6,21 +5,20 @@ package matr;
  * @author Jedabero
  */
 public class Estudiante {
-    
+
     private String nombre;
     private String id;
     private String programa;
-    
-    //private Plan plan;
 
+    //private Plan plan;
     public Estudiante(String nombre, String id, String programa) {
         this.nombre = nombre;
         this.id = id;
         this.programa = programa;
     }
 
-    public Estudiante(String...a) throws Exception{
-        if (a.length>2) {
+    public Estudiante(String... a) throws Exception {
+        if (a.length > 2) {
             nombre = a[0];
             id = a[1];
             programa = a[2];
@@ -28,9 +26,9 @@ public class Estudiante {
             throw new Exception("Array incompatible");
         }
     }
-    
+
     public Estudiante() {
-        this("N.N.","0","N/A");
+        this("N.N.", "0", "N/A");
     }
 
     public String getNombre() {
@@ -59,7 +57,7 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return nombre+":"+id+":"+programa;
+        return nombre + ":" + id + ":" + programa;
     }
-    
+
 }

@@ -1,4 +1,3 @@
-
 package matr;
 
 /**
@@ -6,23 +5,24 @@ package matr;
  * @author Jedabero
  */
 public class Plan {
-    
-    public enum tipo{
+
+    public enum tipo {
+
         PENSUM,
         PLAN
     }
-    
+
     private Estudiante est;
     private tipo tipoPlan;
-    
+
     private Periodo pri;
     private Periodo ult;
 
     public Plan() {
         this(null);
     }
-    
-    public Plan(Estudiante estudiante){
+
+    public Plan(Estudiante estudiante) {
         if (null != estudiante) {
             tipoPlan = tipo.PLAN;
             est = estudiante;
@@ -30,7 +30,7 @@ public class Plan {
             tipoPlan = tipo.PENSUM;
         }
     }
-    
+
     public boolean vacio() {
         return pri == null;
     }
@@ -58,7 +58,7 @@ public class Plan {
         }
         ult = p;
     }
-    
+
     public Plan periodosConCreditos(int c) {
         Plan lista = new Plan();
         Periodo x = pri;
@@ -70,7 +70,7 @@ public class Plan {
         }
         return lista;
     }
-    
+
     public Periodo buscar(Periodo p) {
         Periodo x = pri;
         while (null != x && p != x) {
@@ -160,7 +160,7 @@ public class Plan {
 
     @Override
     public String toString() {
-        String m = tipoPlan+"\n"+((null!=est)?est:"")+"\n";
+        String m = tipoPlan + "\n" + ((null != est) ? est : "") + "\n";
         if (vacio()) {
             m += "vacio";
         } else {

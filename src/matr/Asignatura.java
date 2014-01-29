@@ -7,7 +7,7 @@ package matr;
 public class Asignatura {
 
     private boolean puedeMatr;
-    
+
     private String nombre;
     private String codigo;
     private int creditos;
@@ -16,7 +16,7 @@ public class Asignatura {
 
     private boolean matriculada;
     private String periodo;
-    
+
     private Asignatura requisito;
     private Asignatura corequisito;
 
@@ -136,7 +136,7 @@ public class Asignatura {
     public void updatePuedeMatr() {
         puedeMatr = aprobada ? false : ((null != requisito) ? requisito.aprobada : true);
     }
-    
+
     public boolean puedeMatr() {
         return puedeMatr;
     }
@@ -145,13 +145,13 @@ public class Asignatura {
         updateAprobada();
         updatePuedeMatr();
     }
-    
+
     @Override
     public String toString() {
-        return "{"+nombre + ":" + codigo + ":" + creditos + ":" + periodo
+        return "{" + nombre + ":" + codigo + ":" + creditos + ":" + periodo
                 + ":" + ((requisito != null) ? requisito.codigo : "No")
                 + ":" + ((corequisito != null) ? corequisito.codigo : "No")
-                + ":" + nota + ":" + matriculada +  "}";
+                + ":" + nota + ":" + matriculada + "}";
     }
 
 }

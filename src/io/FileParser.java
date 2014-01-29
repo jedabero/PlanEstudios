@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import matr.Asignatura;
 import matr.Estudiante;
 import matr.Periodo;
@@ -22,7 +20,7 @@ public class FileParser {
     private Periodo anterior;
 
     private Plan plan;
-    
+
     private String contents;
 
     public FileParser(String pathName) throws IOException {
@@ -30,14 +28,20 @@ public class FileParser {
             System.out.println(IO.SEPARATOR.p);
             try {
                 contents = readFile(pathName, Charset.defaultCharset());
-                plan = creaPlan(contents);
+                init();
                 System.out.println(plan);
-            } catch (IOException ex) { ex.printStackTrace(System.err);}
+            } catch (IOException ex) {
+                ex.printStackTrace(System.err);
+            }
         } else {
-            throw new IOException("No se reconoce "+pathName);
+            throw new IOException("No se reconoce " + pathName);
         }
     }
 
+    private void init() {
+        plan = creaPlan(contents);
+    }
+    
     static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return encoding.decode(ByteBuffer.wrap(encoded)).toString();
@@ -94,7 +98,7 @@ public class FileParser {
 
     public Plan creaPlan(String linea) {
         if (null != linea && !linea.isEmpty()) {
-            String q = linea.substring(linea.indexOf("\n")+1);
+            String q = linea.substring(linea.indexOf("\n") + 1);
             System.out.println(q);
             System.out.println(linea);
             String[] seg = linea.split("\n");

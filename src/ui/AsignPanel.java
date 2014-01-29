@@ -19,9 +19,9 @@ public class AsignPanel extends CustomPanel {
         this.asign = asign;
 
         if (!asign.puedeMatr() && !asign.isAprobada()) {
-            setBackground(new Color(200,200,200));
-        } else if(asign.isMatriculada()) {
-            setBackground(new Color(250,250,250));
+            setBackground(new Color(200, 200, 200));
+        } else if (asign.isMatriculada()) {
+            setBackground(new Color(250, 250, 250));
         }
     }
 
