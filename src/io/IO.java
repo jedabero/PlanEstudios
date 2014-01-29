@@ -8,7 +8,8 @@ public enum IO {
 
     EXT(".pln"),
     USER(System.getProperty("user.home")),
-    SEPARATOR(System.getProperty("file.separator"));
+    SEPARATOR(System.getProperty("file.separator")),
+    FL(System.getProperty("line.separator"));
 
     public String p;
 

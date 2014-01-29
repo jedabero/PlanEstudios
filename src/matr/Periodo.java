@@ -207,13 +207,13 @@ public class Periodo {
 
     @Override
     public String toString() {
-        String m = "[" + nombre + "\n";
+        String m = "¬" + nombre;
         if (vacio()) {
             m += "vacia";
         } else {
             Nodo x = cab;
             while (null != x) {
-                m += x + "\n";
+                m += "\n" + x;
                 x = x.getSig();
             }
         }

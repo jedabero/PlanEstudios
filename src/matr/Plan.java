@@ -36,7 +36,7 @@ public class Plan {
     }
 
     public boolean hayUnSoloNodo() {
-        return pri == ult;
+        return (pri == ult) && !vacio();
     }
 
     public void agregarPrimero(Periodo p) {

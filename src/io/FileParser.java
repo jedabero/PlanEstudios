@@ -17,19 +17,15 @@ import matr.Plan;
 public class FileParser {
 
     private Periodo actual;
-    private Periodo anterior;
-
     private Plan plan;
 
     private String contents;
 
     public FileParser(String pathName) throws IOException {
         if (pathName.endsWith(IO.EXT.p)) {
-            System.out.println(IO.SEPARATOR.p);
             try {
                 contents = readFile(pathName, Charset.defaultCharset());
                 init();
-                System.out.println(plan);
             } catch (IOException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -39,46 +35,31 @@ public class FileParser {
     }
 
     private void init() {
-        plan = creaPlan(contents);
+        creaPlan(contents);
+        System.out.println(plan);
     }
-    
+
     static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return encoding.decode(ByteBuffer.wrap(encoded)).toString();
     }
 
-    public Asignatura creaAsignatura(String linea) throws Exception {
-        if (null != linea && linea.isEmpty()) {
-            linea = linea.substring(1, linea.length() - 1);
-            String[] p = linea.split(":");
-            int cred = Integer.parseInt(p[2]);
-            Asignatura req = anterior.buscarAsignaturaPorCod(p[4]);
-            Asignatura coreq = actual.buscarAsignaturaPorCod(p[5]);
-            double calif = Double.parseDouble(p[6]);
-            boolean matr = Boolean.parseBoolean(p[7]);
-            Asignatura asign = new Asignatura(p[0], p[1], cred, p[3], req, coreq, calif);
-            asign.setMatriculada(matr);
-            return asign;
-        } else {
-            throw new Exception("Segmento vacio");
-        }
-    }
-
-    public Periodo creaPeriodo(String linea) {
+    public void creaPlan(String linea) {
         if (null != linea && !linea.isEmpty()) {
-            linea = linea.substring(1, linea.length() - 1);
-            String[] p = linea.split("\n");
-            Periodo l = new Periodo(p[0]);
-            for (String s : p) {
-                try {
-                    Asignatura a = creaAsignatura(s);
-                    l.agregarFinal(a);
-                } catch (Exception e) {
+            int fl1 = linea.indexOf(IO.FL.p);
+            int fl2 = linea.indexOf(IO.FL.p, fl1 + 1);
+            String q = linea.substring(fl1, fl2).trim();
+            plan = new Plan(creaEstudiante(q));
+            linea = linea.substring(fl2 + 1).trim();
+            String[] seg = linea.split("¬");
+            for (String string : seg) {
+                Periodo period = creaPeriodo(string);
+                if (null != period) {
+                    plan.agregarUltimo(period);
                 }
             }
-            return l;
         } else {
-            return null;
+
         }
     }
 
@@ -96,16 +77,44 @@ public class FileParser {
         }
     }
 
-    public Plan creaPlan(String linea) {
+    public Periodo creaPeriodo(String linea) {
         if (null != linea && !linea.isEmpty()) {
-            String q = linea.substring(linea.indexOf("\n") + 1);
-            System.out.println(q);
-            System.out.println(linea);
-            String[] seg = linea.split("\n");
-            Plan p = new Plan(creaEstudiante(seg[1]));
-            return p;
+            int fl1 = linea.indexOf(IO.FL.p);
+            String q = linea.substring(0, fl1).trim();
+            linea = linea.substring(fl1, linea.length()-1).trim();
+            String[] p = linea.split(IO.FL.p);
+            actual = new Periodo(q);
+            for (String s : p) {
+                try {
+                    actual.agregarFinal(creaAsignatura(s.trim()));
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+            return actual;
         } else {
             return null;
+        }
+    }
+
+    public Asignatura creaAsignatura(String linea) throws Exception {
+        if (null != linea && !linea.isEmpty() && linea.length() > 10) {
+            linea = linea.substring(1, linea.length() - 2);
+            String[] p = linea.split(":");
+            if (p.length == 8) {
+                int cred = Integer.parseInt(p[2]);
+                Asignatura req = (plan.vacio() || p[4].equals("No")) ? null : plan.getUlt().buscarAsignaturaPorCod(p[4]);
+                Asignatura coreq = (plan.vacio() || p[5].equals("No")) ? null : actual.buscarAsignaturaPorCod(p[5]);
+                double calif = Double.parseDouble(p[6]);
+                boolean matr = Boolean.parseBoolean(p[7]);
+                Asignatura asign = new Asignatura(p[0], p[1], cred, p[3], req, coreq, calif);
+                asign.setMatriculada(matr);
+                return asign;
+            } else {
+                throw new Exception("Segmento erroneo");
+            }
+        } else {
+            throw new Exception("Segmento vacio o incompleto: "+linea);
         }
     }
 
