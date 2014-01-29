@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import io.IO;
+import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.io.IOException;
 import matr.Asignatura;
 import matr.Periodo;
@@ -32,14 +34,20 @@ public class GUI {
     private void start() {
         mainFrame = new JFrame("Matr");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        System.out.println(IO.OS.p);
+        DisplayMode dm = mainFrame.getGraphicsConfiguration().getDevice().getDisplayMode();
+        Dimension maxSize = new Dimension(dm.getWidth(), dm.getHeight());
+        System.out.println(maxSize);
+        Dimension size;
+        //TODO window stuff
         if(IO.OS.p.contains("Windows")) {
-            mainFrame.setSize(1016, 638);
-        } else if(IO.OS.p.contains("Ubuntu")) {
-            mainFrame.setSize(1010, 638);
+            size = new Dimension(1056, 688);
+        } else if(IO.OS.p.contains("Linux")) {
+            size = new Dimension(1050, 680);
         } else {
-            mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            size = maxSize;
         }
-        
+        mainFrame.setSize(size);
         panel = new JPanel(new GridBagLayout(), true);
         scroll = new JScrollPane(panel);
         panel.setBorder(BorderFactory.createLineBorder(Color.red));
