@@ -92,7 +92,7 @@ public class Plan {
             x.setSig(nuevo);
             nuevo.setSig(z);
             z.setAnt(nuevo);
-            
+
             totalPeriodos++;
             totalCreditos += nuevo.getTotalCreditos();
         } else {
@@ -185,7 +185,7 @@ public class Plan {
     public int getTotalPeriodos() {
         return totalPeriodos;
     }
-    
+
     @Override
     public String toString() {
         String m = tipoPlan + "\n" + ((null != est) ? est : "") + "\n";

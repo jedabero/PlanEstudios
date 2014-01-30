@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import matr.Asignatura;
 import matr.Estudiante;
@@ -27,19 +28,25 @@ public class FileParser {
                 contents = readFile(pathName, Charset.defaultCharset());
                 init();
             } catch (IOException ex) {
+                plan = new Plan();
                 ex.printStackTrace(System.err);
             }
         } else {
+            plan = new Plan();
             throw new IOException("No se reconoce " + pathName);
         }
     }
 
+    public FileParser() {
+        plan = new Plan();
+    }
+    
     private void init() {
         creaPlan(contents);
-        System.out.println(plan);
+        //System.out.println(plan);
     }
 
-    static String readFile(String path, Charset encoding) throws IOException {
+    private static String readFile(String path, Charset encoding) throws IOException, NoSuchFileException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return encoding.decode(ByteBuffer.wrap(encoded)).toString();
     }
@@ -121,5 +128,5 @@ public class FileParser {
     public Plan getPlan() {
         return plan;
     }
-    
+
 }
