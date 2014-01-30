@@ -29,6 +29,8 @@ public class Plan {
         } else {
             tipoPlan = tipo.PENSUM;
         }
+        totalCreditos = 0;
+        totalPeriodos = 0;
     }
 
     public boolean vacio() {
@@ -47,6 +49,8 @@ public class Plan {
             p.setSig(pri);
         }
         pri = p;
+        totalPeriodos++;
+        totalCreditos += p.getTotalCreditos();
     }
 
     public void agregarUltimo(Periodo p) {
@@ -57,6 +61,8 @@ public class Plan {
             p.setAnt(ult);
         }
         ult = p;
+        totalPeriodos++;
+        totalCreditos += p.getTotalCreditos();
     }
 
     public Plan periodosConCreditos(int c) {
@@ -86,6 +92,9 @@ public class Plan {
             x.setSig(nuevo);
             nuevo.setSig(z);
             z.setAnt(nuevo);
+            
+            totalPeriodos++;
+            totalCreditos += nuevo.getTotalCreditos();
         } else {
             throw new Exception("No existe el periodo buscada.");
         }
@@ -95,6 +104,7 @@ public class Plan {
         if (vacio()) {
             return false;
         } else {
+            Periodo temp = pri;
             if (hayUnSoloNodo()) {
                 pri = null;
                 ult = null;
@@ -102,6 +112,8 @@ public class Plan {
                 pri = pri.getSig();
                 pri.setAnt(null);
             }
+            totalPeriodos--;
+            totalCreditos -= temp.getTotalCreditos();
             return true;
         }
     }
@@ -110,6 +122,7 @@ public class Plan {
         if (vacio()) {
             return false;
         } else {
+            Periodo temp = pri;
             if (hayUnSoloNodo()) {
                 pri = null;
                 ult = null;
@@ -117,11 +130,14 @@ public class Plan {
                 ult = ult.getAnt();
                 ult.setSig(null);
             }
+            totalPeriodos--;
+            totalCreditos += temp.getTotalCreditos();
             return true;
         }
     }
 
-    public boolean eliminar(Periodo y) {
+    public boolean eliminar(Periodo p) {
+        Periodo y = buscar(p);
         if (null != y) {
             if (pri == y) {
                 return eliminarPrimero();
@@ -132,9 +148,10 @@ public class Plan {
                 Periodo z = y.getSig();
                 y.setAnt(null);
                 y.setSig(null);
-                y = null;
                 x.setSig(z);
-                z.setAnt(y);
+                z.setAnt(x);
+                totalPeriodos--;
+                totalCreditos -= y.getTotalCreditos();
                 return true;
             }
         } else {
@@ -158,6 +175,17 @@ public class Plan {
         this.est = est;
     }
 
+    private int totalPeriodos;
+    private int totalCreditos;
+
+    public int getTotalCreditos() {
+        return totalCreditos;
+    }
+
+    public int getTotalPeriodos() {
+        return totalPeriodos;
+    }
+    
     @Override
     public String toString() {
         String m = tipoPlan + "\n" + ((null != est) ? est : "") + "\n";
