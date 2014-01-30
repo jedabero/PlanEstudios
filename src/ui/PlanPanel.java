@@ -1,9 +1,8 @@
 package ui;
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import matr.Periodo;
 import matr.Plan;
@@ -13,50 +12,42 @@ import matr.Plan;
  * @author Jedabero
  */
 public class PlanPanel extends JPanel {
-
+    
     public enum Orientacion {
-
+        
         VERTICAL,
         HORIZONTAL;
     }
 
     public PlanPanel(Plan plan, Orientacion o) {
-        super(new GridBagLayout());
+        super();
         this.setBorder(BorderFactory.createLineBorder(Color.green));
 
         if (!plan.vacio()) {
-
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.gridwidth = 1;
-            gbc.gridheight = 1;
-            gbc.gridwidth = 1;
-            gbc.gridheight = 1;
-            gbc.fill = GridBagConstraints.BOTH;
-
+            int axis = 0;
+            switch (o) {
+                case HORIZONTAL:
+                    axis = BoxLayout.X_AXIS;
+                    break;
+                case VERTICAL:
+                    axis = BoxLayout.Y_AXIS;
+                    break;
+            }
+            setLayout(new BoxLayout(this, axis));
             Periodo x = plan.getPri();
             while (null != x) {
-                add(new PeriodPanel(x), gbc);
-                switch (o) {
-                    case HORIZONTAL:
-                        gbc.gridx++;
-                        break;
-                    case VERTICAL:
-                        gbc.gridy++;
-                        break;
-                }
+                PeriodPanel pp = new PeriodPanel(x, o);
+                add(pp);
                 x = x.getSig();
             }
-
         } else {
-            
+
         }
     }
 
-    public void añadirPeriodo(Periodo p) {
+    public void anadirPeriodo(Periodo p) {
         /*jhf
-        jfmfj*/
+         jfmfj*/
     }
-    
+
 }
