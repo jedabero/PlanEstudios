@@ -45,9 +45,8 @@ public class PlanPanel extends JPanel {
         }
     }
 
-    public void anadirPeriodo(Periodo p) {
-        /*jhf
-         jfmfj*/
+    public void agregarPeriodo(Periodo p) {
+        
     }
 
 }

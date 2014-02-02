@@ -7,7 +7,6 @@ import io.IO;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.io.IOException;
-import javax.swing.JPanel;
 
 /**
  *
