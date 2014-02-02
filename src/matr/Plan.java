@@ -1,10 +1,12 @@
 package matr;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jedabero
  */
-public class Plan {
+public class Plan implements Serializable {
 
     public enum tipo {
 

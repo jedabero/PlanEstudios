@@ -1,10 +1,12 @@
 package matr;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jedabero
  */
-public class Estudiante {
+public class Estudiante implements Serializable {
 
     private String nombre;
     private String id;

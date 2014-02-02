@@ -1,10 +1,12 @@
 package matr;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jedabero
  */
-public class Asignatura {
+public class Asignatura implements Serializable {
 
     private boolean puedeMatr;
 

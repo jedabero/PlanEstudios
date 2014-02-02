@@ -7,6 +7,9 @@ import io.IO;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -19,6 +22,8 @@ public class GUI {
     private PlanPanel ppanel;
     private JScrollPane scroll;
 
+    public static final String matrDir = IO.USER.p + IO.FS.p + "matr" + IO.FS.p;
+    
     public static void main(String[] args) {
         GUI gui = new GUI();
         gui.start();
@@ -44,9 +49,11 @@ public class GUI {
         }
         mainFrame.setSize(size);
 
+        setSystemLandF();
+        
         FileParser fp;
         try {
-            fp = new FileParser(IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.pln");
+            fp = new FileParser(IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.plan");
         } catch (IOException ioe) {
             ioe.printStackTrace(System.err);
             fp = new FileParser();
@@ -61,4 +68,12 @@ public class GUI {
         System.out.println(mainFrame.getContentPane().getSize());
     }
 
+    private void setSystemLandF() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace(System.err);
+        }
+    }
+    
 }

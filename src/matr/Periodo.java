@@ -1,10 +1,12 @@
 package matr;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jedabero
  */
-public class Periodo {
+public class Periodo implements Serializable {
 
     private Nodo<Asignatura> cab;
     private Nodo<Asignatura> fin;

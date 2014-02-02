@@ -1,11 +1,13 @@
 package matr;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jedabero
  * @param <T>
  */
-public class Nodo<T> {
+public class Nodo<T> implements Serializable {
 
     private T item;
     private Nodo ant;

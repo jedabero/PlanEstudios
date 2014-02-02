@@ -7,7 +7,8 @@ package io;
 public enum IO {
 
     OS(System.getProperty("os.name")),
-    EXT(".pln"),
+    EXT(".plan"),
+    EXTO(".plano"),
     USER(System.getProperty("user.home")),
     FS(System.getProperty("file.separator")),
     LS(System.getProperty("line.separator"));
