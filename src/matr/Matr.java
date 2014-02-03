@@ -40,8 +40,8 @@ public class Matr {
         FileParser fp;
         try {
             fp = new FileParser(IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.pln");
-        } catch (IOException ioe) {
-            ioe.printStackTrace(System.err);
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace(System.err);
             fp = null;
         }//*/
 

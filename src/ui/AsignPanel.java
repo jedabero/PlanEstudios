@@ -1,46 +1,92 @@
 package ui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.plaf.ColorUIResource;
 import matr.Asignatura;
 
 /**
  *
  * @author Jedabero
  */
-public class AsignPanel extends CustomPanel {
+public class AsignPanel extends JPanel implements MouseListener {
 
     private Asignatura asign;
 
-    public AsignPanel(JPanel parent, Asignatura asign) {
-        super(parent, 400, 150, new Dimension(150, 110), new Dimension(210, 170));
-        this.asign = asign;
+    private boolean inside;
 
-        if (!asign.puedeMatr() && !asign.isAprobada()) {
-            setBackground(new Color(200, 200, 200));
-        } else if (asign.isMatriculada()) {
-            setBackground(new Color(250, 250, 250));
-        }
+    private Polygon tick;
+    private Point tickLoc;
+
+    private int txth;
+    
+    private final Color defaultColor;
+    public AsignPanel(JPanel parent, Asignatura asign) {
+        //super(parent, 400, 150, new Dimension(150, 110), new Dimension(210, 170));
+        super();
+        setPreferredSize(new Dimension(150, 110));
+        this.asign = asign;
+        setBorder(BorderFactory.createLineBorder(Color.yellow));
+        
+        Point p = new Point(100, txth);
+        tick = new Polygon(
+                new int[]{p.x + 1, p.x + 3, p.x + 6, p.x + 14, p.x + 16, p.x + 6},
+                new int[]{p.y + 8, p.y + 6, p.y + 9, p.y + 1, p.y + 3, p.y + 13},
+                6);
+        addMouseListener(this);
+        defaultColor = parent.getBackground();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int txth = getFontHeight();
-        int y = getHeight() / 2 - txth;
-        String text;
-        if (!isInside()) {
-            text = asign.getNombre() + "\n" + asign.getCodigo();
+        Graphics2D g2d = (Graphics2D) g;
+        if (!inside) {
+            g2d.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+            setBackground(defaultColor);
         } else {
-            text = asign.toString();
-            y -= (txth * 4);
+            g2d.setStroke(new BasicStroke(2, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
+            setBackground(defaultColor.brighter());
         }
-        for (String line : text.split("\n")) {
-            int lineLen = getStringLen(line);
-            g.drawString(line, getWidth() / 2 - lineLen / 2, y += txth);
+        txth = g.getFontMetrics().getHeight();
+        
+        if (!asign.puedeMatr() && !asign.isAprobada()) {
+            setBackground(new Color(200, 200, 200));
         }
+        if (asign.isMatriculada()) {
+            g2d.setColor(Color.blue);
+            g2d.fillOval(100, txth/2, 10, 10);
+            g2d.setColor(Color.black);
+        }
+        if (asign.isAprobada()) {
+            g2d.drawPolygon(tick);
+            g2d.setColor(Color.green);
+            g2d.fillPolygon(tick);
+            g2d.setColor(Color.black);
+        }
+
+        String cod = asign.getCodigo();
+        g2d.drawString(cod, 5, txth);
+        
+        String cred = "Cred. " + asign.getCreditos();
+        g2d.drawString(cred, 10 + getStringLen(cod), txth);
+
+        String text = asign.getNombre();
+        int y = getHeight() / 2 - txth;
+        int lineLen = getStringLen(text);
+        g2d.drawString(text, (getWidth() / 2) - (lineLen / 2), y += txth);
+        
     }
 
     public void setAsignatura(Asignatura asign) {
@@ -49,6 +95,41 @@ public class AsignPanel extends CustomPanel {
 
     public Asignatura getAsignatura() {
         return asign;
+    }
+
+    public int getStringLen(String s) {
+        return (int) this.getGraphics().getFontMetrics().getStringBounds(s, this.getGraphics()).getWidth();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("c" + e.getButton());
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("p" + e.getButton());
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        inside = true;
+        repaint();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        inside = false;
+        repaint();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

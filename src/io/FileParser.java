@@ -114,7 +114,7 @@ public class FileParser {
 
     public Asignatura creaAsignatura(String linea) throws Exception {
         if (null != linea && !linea.isEmpty() && linea.length() > 10) {
-            linea = linea.substring(1, linea.length() - 2);
+            linea = linea.substring(1, linea.length() - 1);
             String[] p = linea.split(":");
             if (p.length == 8) {
                 int cred = Integer.parseInt(p[2]);
