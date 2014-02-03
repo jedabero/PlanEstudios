@@ -1,6 +1,8 @@
 package io;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -22,7 +24,8 @@ public class FileParser {
 
     private String contents;
 
-    public FileParser(String pathName) throws IOException {
+    public FileParser(String pathName)
+            throws IOException, ClassNotFoundException {
         if (pathName.endsWith(IO.EXT.p)) {
             try {
                 contents = readFile(pathName, Charset.defaultCharset());
@@ -30,6 +33,11 @@ public class FileParser {
             } catch (IOException ex) {
                 plan = new Plan();
                 ex.printStackTrace(System.err);
+            }
+        } else if(pathName.endsWith(IO.EXTO.p)) {
+            FileInputStream fileIn = new FileInputStream(pathName);
+            try (ObjectInputStream entrada = new ObjectInputStream(fileIn)) {
+                plan = (Plan) entrada.readObject();
             }
         } else {
             plan = new Plan();

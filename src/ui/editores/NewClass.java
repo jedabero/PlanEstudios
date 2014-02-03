@@ -1,9 +1,9 @@
 
 package ui.editores;
 
-import io.FileCreator;
 import io.FileParser;
 import io.IO;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import matr.Asignatura;
@@ -68,10 +67,19 @@ public class NewClass {
             e.printStackTrace(System.err);
         }//
         JFileChooser jfc = new JFileChooser(GUI.matrDir);
-        
+        jfc.setMultiSelectionEnabled(false);
         System.out.println(IO.USER.p);
-        System.out.println(jfc.showOpenDialog(null));
-        System.out.println(jfc.getSelectedFile());
+        System.out.println(jfc.showSaveDialog(null));
+        File f = new File(jfc.getSelectedFile().getPath()+".plan");
+        try {
+            if (f.createNewFile()) {
+                System.out.println(f.exists());
+            }
+        } catch (IOException e) {
+            e.printStackTrace(System.err);
+        }
+
+        
         try {
             //FileCreator fc = new FileCreator("qwerty", null, 1);
         } catch (Exception e) {
