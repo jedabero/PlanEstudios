@@ -41,7 +41,7 @@ public class Asignatura implements Serializable {
         this.nota = nota;
         this.requisito = requisito;
         this.corequisito = corequisito;
-
+        
         aprobada = nota >= 3.0;
         puedeMatr = aprobada ? false : ((null != requisito) ? requisito.aprobada : true);
 

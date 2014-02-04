@@ -38,6 +38,11 @@ public class AsignaturaEditor extends javax.swing.JPanel {
 
     }
 
+    public AsignaturaEditor(Periodo p) {
+        this(null, p);
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,12 +159,17 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         String per = txtPeriodo.getText();
         String req = txtReq.getText();
         String cor = txtCoreq.getText();
+        Asignatura areq = null;
+        Asignatura acor = null;
+        if(null != p) {
+            areq = (null == p.getAnt()) ? null : p.getAnt().buscarAsignaturaPorCod(req);
+            acor = (p.vacio()) ? null : this.p.buscarAsignaturaPorCod(cor);
+        }
+        
         int cre = (int) jsCreditos.getValue();
         double not = Double.parseDouble(txtNota.getText());
 
-        return new Asignatura(nom, cod, cre, per,
-                (null == p.getAnt()) ? null : p.getAnt().buscarAsignaturaPorCod(req),
-                (p.vacio()) ? null : this.p.buscarAsignaturaPorCod(cor), not);
+        return new Asignatura(nom, cod, cre, per, areq, acor, not);
     }
 
 

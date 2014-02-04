@@ -64,7 +64,6 @@ public class FileCreator {
         } catch (IOException e) {
             e.printStackTrace(System.err);
         } finally {
-            // Nuevamente aprovechamos el finally para asegurarnos que se cierra el fichero.
             try {
                 if (null != fichero) {
                     fichero.close();
