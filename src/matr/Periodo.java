@@ -69,10 +69,20 @@ public class Periodo implements Serializable {
     }
 
     public Nodo<Asignatura> buscarPorCodigo(String cod) {
-        Nodo<Asignatura> x = cab;
-        while (null != x && !x.getItem().getCodigo().equalsIgnoreCase(cod)) {
-            x = x.getSig();
+        Periodo este = this;
+        Nodo<Asignatura> x = null;
+        boolean encontrado = false;
+        while (null != este && !encontrado) {
+            x = este.cab;
+            while (null != x && !encontrado) {
+                encontrado = x.getItem().getCodigo().equalsIgnoreCase(cod);
+                if (!encontrado) {
+                    x = x.getSig();
+                }
+            }
+            este = este.getAnt();
         }
+
         return x;
     }
 
