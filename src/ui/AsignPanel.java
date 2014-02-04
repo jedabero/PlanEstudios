@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JToolTip;
 import matr.Asignatura;
 
 /**
@@ -27,22 +28,24 @@ public class AsignPanel extends JPanel implements MouseListener {
     private final Point tickLoc;
 
     private int txth;
-    
+
     private final Color defaultColor;
+
     public AsignPanel(JPanel parent, Asignatura asign) {
         //super(parent, 400, 150, new Dimension(150, 110), new Dimension(210, 170));
         super();
-        setPreferredSize(new Dimension(150, 110));
+        setPreferredSize(new Dimension(120, 110));
         this.asign = asign;
         setBorder(BorderFactory.createLineBorder(Color.yellow));
-        
-        tickLoc = new Point(120, txth);
+
+        tickLoc = new Point(96, txth);
         tick = new Polygon(
                 new int[]{tickLoc.x + 1, tickLoc.x + 3, tickLoc.x + 6, tickLoc.x + 14, tickLoc.x + 16, tickLoc.x + 6},
                 new int[]{tickLoc.y + 8, tickLoc.y + 6, tickLoc.y + 9, tickLoc.y + 1, tickLoc.y + 3, tickLoc.y + 13},
                 6);
         addMouseListener(this);
         defaultColor = parent.getBackground();
+        setToolTipText(asign.toString());
     }
 
     @Override
@@ -57,24 +60,28 @@ public class AsignPanel extends JPanel implements MouseListener {
             g2d.setStroke(new BasicStroke(2, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
             setBackground(defaultColor.brighter());
         }
-        
+
         txth = g.getFontMetrics().getHeight();//Altura de las String
-        
+
         //Cambia color de fondo de acuerdo al estado de la asignatura
         if (!asign.puedeMatr() && !asign.isAprobada()) {
             setBackground(new Color(200, 200, 200));
             g2d.setColor(Color.blue);
             g2d.setStroke(new BasicStroke(2));
-            g2d.drawRect(tickLoc.x, tickLoc.y+2, 10, 10);
+            g2d.drawRect(tickLoc.x, tickLoc.y + 2, 10, 10);
             g2d.setStroke(new BasicStroke(1));
             g2d.setColor(Color.black);
         }
         //Dibujar indicador de matriculada.
         if (asign.isMatriculada()) {
             g2d.setColor(Color.blue);
-            g2d.fillOval(tickLoc.x, tickLoc.y+1, 12, 12);
-            g2d.setColor(Color.black);
+            g2d.fillOval(tickLoc.x, tickLoc.y + 1, 12, 12);
+        } else if (asign.puedeMatr()) {
+            g2d.setColor(Color.green);
+            g2d.fillOval(tickLoc.x, tickLoc.y + 1, 12, 12);
         }
+        g2d.setColor(Color.black);
+
         //Dibujar chulito de aprobada.
         if (asign.isAprobada()) {
             g2d.drawPolygon(tick);
@@ -85,27 +92,38 @@ public class AsignPanel extends JPanel implements MouseListener {
 
         String cod = asign.getCodigo();
         g2d.drawString(cod, 5, txth);
-        
+
         String cred = "Cred. " + asign.getCreditos();
         g2d.drawString(cred, 10 + getStringLen(cod), txth);
 
         String nom = asign.getNombre();
         int y = getHeight() / 2 - txth;
         int lineLen = getStringLen(nom);
-        g2d.drawString(nom, (getWidth() / 2) - (lineLen / 2), y);
-        y += txth;
-        
+
+        if (lineLen > getWidth() + 5) {
+            int mid = nom.indexOf(" ", nom.indexOf(" ") + 1);
+            String nom1 = nom.substring(0, mid);
+            int len1 = getStringLen(nom1);
+            g2d.drawString(nom1, (getWidth() / 2) - (len1 / 2), y);
+            String nom2 = nom.substring(mid + 1, nom.length());
+            int len2 = getStringLen(nom2);
+            g2d.drawString(nom2, (getWidth() / 2) - (len2 / 2), y += txth);
+        } else {
+            g2d.drawString(nom, (getWidth() / 2) - (lineLen / 2), y);
+            y += txth;
+        }
+
         if (0d != asign.getNota()) {
-            g2d.drawString("Calif.: "+asign.getNota(), 5, y += txth);
+            g2d.drawString("Calif.: " + asign.getNota(), 5, y += txth);
         }
         if (null != asign.getRequisito()) {
-            g2d.drawString("Req.: "+asign.getRequisito().getCodigo(), 5, y += txth);
+            g2d.drawString("Req.: " + asign.getRequisito().getCodigo(), 5, y += txth);
         }
         if (null != asign.getCorequisito()) {
-            g2d.drawString("Coreq.: "+asign.getCorequisito().getCodigo(), 5, y += txth);
+            g2d.drawString("Coreq.: " + asign.getCorequisito().getCodigo(), 5, y += txth);
         }
-        g2d.drawString("Periodo: "+asign.getPeriodo(), 5, y += txth);
-        
+        g2d.drawString("Periodo: " + asign.getPeriodo(), 5, y += txth);
+
     }
 
     public void setAsignatura(Asignatura asign) {

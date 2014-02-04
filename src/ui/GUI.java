@@ -22,7 +22,7 @@ public class GUI {
     private JScrollPane scroll;
 
     public static final String matrDir = IO.USER.p + IO.FS.p + "matr" + IO.FS.p;
-    
+
     public static void main(String[] args) {
         GUI gui = new GUI();
         gui.start();
@@ -49,7 +49,7 @@ public class GUI {
         mainFrame.setSize(size);
 
         setSystemLandF();
-        
+
         FileParser fp;
         try {
             fp = new FileParser(IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.plan");
@@ -74,5 +74,5 @@ public class GUI {
             e.printStackTrace(System.err);
         }
     }
-    
+
 }

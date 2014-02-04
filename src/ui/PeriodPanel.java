@@ -21,7 +21,8 @@ public class PeriodPanel extends JPanel {
         this.periodo = periodo;
         switch (o) {
             case HORIZONTAL:
-                setSize(150 + 100, 120 * periodo.getTotalAsignaturas());
+                int h = 120 * (periodo.getTotalAsignaturas() / 2 + 1);
+                setSize(150 + 100, h);
                 break;
             case VERTICAL:
                 setSize(150 * periodo.getTotalAsignaturas() + 100, 120);

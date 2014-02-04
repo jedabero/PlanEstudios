@@ -12,9 +12,9 @@ import matr.Plan;
  * @author Jedabero
  */
 public class PlanPanel extends JPanel {
-    
+
     public enum Orientacion {
-        
+
         VERTICAL,
         HORIZONTAL;
     }
@@ -46,7 +46,7 @@ public class PlanPanel extends JPanel {
     }
 
     public void agregarPeriodo(Periodo p) {
-        
+
     }
 
 }

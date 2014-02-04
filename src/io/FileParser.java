@@ -34,7 +34,7 @@ public class FileParser {
                 plan = new Plan();
                 ex.printStackTrace(System.err);
             }
-        } else if(pathName.endsWith(IO.EXTO.p)) {
+        } else if (pathName.endsWith(IO.EXTO.p)) {
             FileInputStream fileIn = new FileInputStream(pathName);
             try (ObjectInputStream entrada = new ObjectInputStream(fileIn)) {
                 plan = (Plan) entrada.readObject();
@@ -48,7 +48,7 @@ public class FileParser {
     public FileParser() {
         plan = new Plan();
     }
-    
+
     private void init() {
         creaPlan(contents);
         //System.out.println(plan);
