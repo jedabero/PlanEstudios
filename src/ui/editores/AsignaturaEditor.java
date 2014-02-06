@@ -29,6 +29,7 @@ public class AsignaturaEditor extends javax.swing.JPanel {
             txtCodigo.setText(a.getCodigo());
             jsCreditos.setValue(a.getCreditos());
             txtPeriodo.setText(a.getPeriodo());
+            txtNivel.setText(a.getNivel());
             txtNota.setText("" + a.getNota());
             Asignatura r = a.getRequisito();
             txtReq.setText((r != null) ? r.getCodigo() : "");
@@ -65,6 +66,8 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         txtCoreq = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtNota = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtNivel = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edicion de Asignatura", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -86,6 +89,8 @@ public class AsignaturaEditor extends javax.swing.JPanel {
 
         jLabel7.setText("Nota");
 
+        jLabel8.setText("Nivel");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,7 +104,8 @@ public class AsignaturaEditor extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
@@ -108,7 +114,8 @@ public class AsignaturaEditor extends javax.swing.JPanel {
                     .addComponent(txtNota, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtPeriodo)
                     .addComponent(txtReq)
-                    .addComponent(txtCoreq))
+                    .addComponent(txtCoreq)
+                    .addComponent(txtNivel))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -130,6 +137,10 @@ public class AsignaturaEditor extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -156,6 +167,7 @@ public class AsignaturaEditor extends javax.swing.JPanel {
             throw new Exception("Codigo no puede ser vacio.");
         }
         String per = txtPeriodo.getText();
+        String niv = txtNivel.getText();
         String req = txtReq.getText();
         String cor = txtCoreq.getText();
         Asignatura areq = null;
@@ -168,7 +180,7 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         int cre = (int) jsCreditos.getValue();
         double not = Double.parseDouble(txtNota.getText());
 
-        return new Asignatura(nom, cod, cre, per, areq, acor, not);
+        return new Asignatura(nom, cod, cre, per, niv, areq, acor, not);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -179,9 +191,11 @@ public class AsignaturaEditor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JSpinner jsCreditos;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCoreq;
+    private javax.swing.JTextField txtNivel;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNota;
     private javax.swing.JTextField txtPeriodo;

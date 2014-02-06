@@ -18,6 +18,7 @@ public class Asignatura implements Serializable {
 
     private boolean matriculada;
     private String periodo;
+    private String nivel;
 
     private Asignatura requisito;
     private Asignatura corequisito;
@@ -29,12 +30,15 @@ public class Asignatura implements Serializable {
      * @param codigo the value of codigo
      * @param creditos the value of creditos
      * @param periodo the value of periodo
+     * @param nivel the value of periodo
      * @param requisito the value of requisito
      * @param corequisito the value of corequisito
      * @param nota the value of nota
      */
-    public Asignatura(String nombre, String codigo, int creditos, String periodo, Asignatura requisito, Asignatura corequisito, double nota) {
+    public Asignatura(String nombre, String codigo, int creditos,
+            String periodo, String nivel, Asignatura requisito, Asignatura corequisito, double nota) {
         this.periodo = periodo;
+        this.nivel = nivel;
         this.nombre = nombre;
         this.codigo = codigo;
         this.creditos = creditos;
@@ -47,19 +51,19 @@ public class Asignatura implements Serializable {
 
     }
 
-    public Asignatura(boolean matriculada, String periodo,
+    public Asignatura(boolean matriculada, String periodo, String nivel,
             String nombre, String cod, int cred,
             Asignatura req, Asignatura coreq) {
-        this(nombre, cod, cred, periodo, req, coreq, 0d);
+        this(nombre, cod, cred, periodo, nivel, req, coreq, 0d);
         this.matriculada = matriculada;
     }
 
     public Asignatura(String nombre, String cod, int cred) {
-        this(nombre, cod, cred, "N/A", null, null, 0d);
+        this(nombre, cod, cred, "N/A", "N/A", null, null, 0d);
     }
 
     public Asignatura() {
-        this("N/A", "N/A", 0, "N/A", null, null, 0d);
+        this("N/A", "N/A", 0, "N/A", "N/A", null, null, 0d);
     }
 
     public boolean isAprobada() {
@@ -84,6 +88,14 @@ public class Asignatura implements Serializable {
 
     public void setPeriodo(String periodo) {
         this.periodo = periodo;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
     }
 
     public String getNombre() {
@@ -150,7 +162,8 @@ public class Asignatura implements Serializable {
 
     @Override
     public String toString() {
-        return "{" + nombre + ":" + codigo + ":" + creditos + ":" + periodo
+        return "{" + nombre + ":" + codigo + ":" + creditos
+                + ":" + periodo + ":" + nivel 
                 + ":" + ((requisito != null) ? requisito.codigo : "No")
                 + ":" + ((corequisito != null) ? corequisito.codigo : "No")
                 + ":" + nota + ":" + matriculada + "}";

@@ -116,13 +116,13 @@ public class FileParser {
         if (null != linea && !linea.isEmpty() && linea.length() > 10) {
             linea = linea.substring(1, linea.length() - 1);
             String[] p = linea.split(":");
-            if (p.length == 8) {
+            if (p.length == 9) {
                 int cred = Integer.parseInt(p[2]);
-                Asignatura req = (plan.vacio() || p[4].equals("No")) ? null : plan.getUlt().buscarAsignaturaPorCod(p[4]);
-                Asignatura coreq = (plan.vacio() || p[5].equals("No")) ? null : actual.buscarAsignaturaPorCod(p[5]);
-                double calif = Double.parseDouble(p[6]);
-                boolean matr = Boolean.parseBoolean(p[7]);
-                Asignatura asign = new Asignatura(p[0], p[1], cred, p[3], req, coreq, calif);
+                Asignatura req = (plan.vacio() || p[5].equals("No")) ? null : plan.getUlt().buscarAsignaturaPorCod(p[5]);
+                Asignatura coreq = (plan.vacio() || p[6].equals("No")) ? null : actual.buscarAsignaturaPorCod(p[6]);
+                double calif = Double.parseDouble(p[7]);
+                boolean matr = Boolean.parseBoolean(p[8]);
+                Asignatura asign = new Asignatura(p[0], p[1], cred, p[3], p[4], req, coreq, calif);
                 asign.setMatriculada(matr);
                 return asign;
             } else {
