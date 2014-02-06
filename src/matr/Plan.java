@@ -190,16 +190,17 @@ public class Plan implements Serializable {
 
     @Override
     public String toString() {
-        String m = tipoPlan + "\n" + ((null != est) ? est : "") + "\n";
+        StringBuilder m = new StringBuilder(tipoPlan.toString()).append("\n");
+        m.append((null != est) ? est : "").append("\n");
         if (vacio()) {
-            m += "vacio";
+            m.append("vacio");
         } else {
             Periodo x = pri;
             while (null != x) {
-                m += x + "\n";
+                m.append(x).append("\n");
                 x = x.getSig();
             }
         }
-        return m;
+        return m.toString();
     }
 }

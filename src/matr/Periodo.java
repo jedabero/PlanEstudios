@@ -219,17 +219,17 @@ public class Periodo implements Serializable {
 
     @Override
     public String toString() {
-        String m = "¬" + nombre;
+        StringBuilder m = new StringBuilder("¬").append(nombre);
         if (vacio()) {
-            m += "vacia";
+            m.append("vacia");
         } else {
             Nodo x = cab;
             while (null != x) {
-                m += "\n" + x;
+                m.append("\n").append(x);
                 x = x.getSig();
             }
         }
-        return m;
+        return m.toString();
     }
 
     public Periodo getSig() {

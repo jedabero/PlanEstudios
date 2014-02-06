@@ -163,7 +163,7 @@ public class Asignatura implements Serializable {
     @Override
     public String toString() {
         return "{" + nombre + ":" + codigo + ":" + creditos
-                + ":" + periodo + ":" + nivel 
+                + ":" + periodo + ":" + nivel
                 + ":" + ((requisito != null) ? requisito.codigo : "No")
                 + ":" + ((corequisito != null) ? corequisito.codigo : "No")
                 + ":" + nota + ":" + matriculada + "}";
