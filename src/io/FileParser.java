@@ -66,7 +66,7 @@ public class FileParser {
             String q = linea.substring(fl1, fl2).trim();
             plan = new Plan(creaEstudiante(q));
             linea = linea.substring(fl2 + 1).trim();
-            String[] seg = linea.split("¬");
+            String[] seg = linea.split("\\(");
             for (String string : seg) {
                 Periodo period = creaPeriodo(string);
                 if (null != period) {

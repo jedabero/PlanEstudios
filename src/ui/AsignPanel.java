@@ -7,11 +7,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import io.IO;
 import matr.Asignatura;
+import ui.editores.AsignaturaEditor;
 
 /**
  *
@@ -30,11 +37,11 @@ public class AsignPanel extends JPanel implements MouseListener {
 
     private final Color defaultColor;
 
-    public AsignPanel(JPanel parent, Asignatura asign) {
+    public AsignPanel(final PeriodPanel parent, Asignatura a) {
         //super(parent, 400, 150, new Dimension(150, 110), new Dimension(210, 170));
         super();
         setPreferredSize(new Dimension(150, 110));
-        this.asign = asign;
+        this.asign = a;
         setBorder(BorderFactory.createLineBorder(Color.yellow));
 
         tickLoc = new Point(120, txth);
@@ -44,7 +51,58 @@ public class AsignPanel extends JPanel implements MouseListener {
                 6);
         addMouseListener(this);
         defaultColor = parent.getBackground();
-        setToolTipText(asign.toString());
+        setToolTipText(a.toString());
+
+        JPopupMenu jpm = new JPopupMenu("menu");
+        JMenuItem jm0 = new JMenuItem("Editar");
+        jm0.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent aev) {
+                AsignaturaEditor ae = new AsignaturaEditor(asign, parent.getPeriodo());
+                int r = JOptionPane.showConfirmDialog(null, ae, "Title", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (r == JOptionPane.OK_OPTION) {
+                    try {
+                        asign = ae.getA();
+                    } catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(null, "Error en Valor de Nota", "ERROR DE FORMATO", JOptionPane.ERROR_MESSAGE);
+                    } catch (NullPointerException npe) {
+                        JOptionPane.showMessageDialog(null, "Error en Valor de Nota\n" + npe.getMessage(), "VACIO", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(), "VACIO", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    System.out.println("No");
+                }
+                repaint();
+            }
+        });
+        jpm.add(jm0);
+
+        JMenuItem jm1 = new JMenuItem("Matricular");
+        jm1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (asign.puedeMatr()) {
+
+                } else {
+                    StringBuilder mes = new StringBuilder("No puede matricular " );
+                    mes.append(asign.getNombre()).append(IO.LS.p).append("Razón: ");
+                    if (asign.isAprobada()) {
+                        mes.append("Ya está aprobada.");
+                    } else {
+                        
+                    }
+                    JOptionPane.showMessageDialog(null, mes, "Matricula", JOptionPane.ERROR_MESSAGE);
+                }
+                repaint();
+            }
+        });
+        jpm.add(jm1);
+
+        setComponentPopupMenu(jpm);
     }
 
     @Override
@@ -140,13 +198,13 @@ public class AsignPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("c" + e.getButton());
+        //System.out.println("c" + e.getButton());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("p" + e.getButton());
+        //System.out.println("p" + e.getButton());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

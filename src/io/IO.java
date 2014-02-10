@@ -6,12 +6,12 @@ package io;
  */
 public enum IO {
 
-    OS(System.getProperty("os.name")),
     EXT(".plan"),
     EXTO(".plano"),
+    OS(System.getProperty("os.name")),
     USER(System.getProperty("user.home")),
-    FS(System.getProperty("file.separator")),
-    LS(System.getProperty("line.separator"));
+    LS(System.getProperty("line.separator")),
+    FS(System.getProperty("file.separator"));
 
     public String p;
 

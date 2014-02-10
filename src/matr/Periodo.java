@@ -87,7 +87,8 @@ public class Periodo implements Serializable {
     }
 
     public Asignatura buscarAsignaturaPorCod(String cod) {
-        return buscarPorCodigo(cod).getItem();
+        Nodo<Asignatura> res = buscarPorCodigo(cod);
+        return (null != res) ? res.getItem() : null;
     }
 
     public void agregarDespuesDe(Nodo<Asignatura> nuevo, Asignatura vieja) throws Exception {
@@ -219,7 +220,7 @@ public class Periodo implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder m = new StringBuilder("¬").append(nombre);
+        StringBuilder m = new StringBuilder("(").append(nombre);
         if (vacio()) {
             m.append("vacia");
         } else {

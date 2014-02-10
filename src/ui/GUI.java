@@ -49,22 +49,25 @@ public class GUI {
         mainFrame.setSize(size);
 
         setSystemLandF();
+        mainFrame.setLocationRelativeTo(mainFrame.getRootPane());
+        mainFrame.setVisible(true);
 
+        String fppath = IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.plan";
         FileParser fp;
         try {
-            fp = new FileParser(IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.plan");
+            fp = new FileParser(fppath);
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace(System.err);
             fp = new FileParser();
         }
 
-        ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
+        ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.HORIZONTAL);
+        //ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
         scroll = new JScrollPane(ppanel);
         mainFrame.getContentPane().add(scroll);
+        mainFrame.revalidate();
 
-        mainFrame.setLocationRelativeTo(mainFrame.getRootPane());
-        mainFrame.setVisible(true);
-        System.out.println(mainFrame.getContentPane().getSize());
+        //System.out.println(mainFrame.getContentPane().getSize());
     }
 
     private void setSystemLandF() {

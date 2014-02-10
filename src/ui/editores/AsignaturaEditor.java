@@ -174,13 +174,16 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         Asignatura acor = null;
         if (null != p) {
             areq = (null == p.getAnt()) ? null : p.getAnt().buscarAsignaturaPorCod(req);
-            acor = (p.vacio()) ? null : this.p.buscarAsignaturaPorCod(cor);
+            acor = (p.vacio()) ? null : p.buscarAsignaturaPorCod(cor);
         }
 
         int cre = (int) jsCreditos.getValue();
         double not = Double.parseDouble(txtNota.getText());
 
-        return new Asignatura(nom, cod, cre, per, niv, areq, acor, not);
+        boolean m = (null != a)?a.isMatriculada():false;
+        a = new Asignatura(nom, cod, cre, per, niv, areq, acor, not);
+        a.setMatriculada(m);
+        return a;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

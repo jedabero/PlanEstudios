@@ -39,4 +39,8 @@ public class PeriodPanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.blue));
     }
 
+    public Periodo getPeriodo() {
+        return periodo;
+    }
+
 }
