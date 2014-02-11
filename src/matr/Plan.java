@@ -52,7 +52,7 @@ public class Plan implements Serializable {
         }
         pri = p;
         totalPeriodos++;
-        totalCreditos += p.getTotalCreditos();
+        totalCreditos += p.getTotalCreditosMatriculados();
     }
 
     public void agregarUltimo(Periodo p) {
@@ -64,14 +64,14 @@ public class Plan implements Serializable {
         }
         ult = p;
         totalPeriodos++;
-        totalCreditos += p.getTotalCreditos();
+        totalCreditos += p.getTotalCreditosMatriculados();
     }
 
     public Plan periodosConCreditos(int c) {
         Plan lista = new Plan();
         Periodo x = pri;
         while (null != x) {
-            if (c == x.getTotalCreditos()) {
+            if (c == x.getTotalCreditosMatriculados()) {
                 lista.agregarUltimo(x);
             }
             x = x.getSig();
@@ -96,7 +96,7 @@ public class Plan implements Serializable {
             z.setAnt(nuevo);
 
             totalPeriodos++;
-            totalCreditos += nuevo.getTotalCreditos();
+            totalCreditos += nuevo.getTotalCreditosMatriculados();
         } else {
             throw new Exception("No existe el periodo buscada.");
         }
@@ -115,7 +115,7 @@ public class Plan implements Serializable {
                 pri.setAnt(null);
             }
             totalPeriodos--;
-            totalCreditos -= temp.getTotalCreditos();
+            totalCreditos -= temp.getTotalCreditosMatriculados();
             return true;
         }
     }
@@ -133,7 +133,7 @@ public class Plan implements Serializable {
                 ult.setSig(null);
             }
             totalPeriodos--;
-            totalCreditos += temp.getTotalCreditos();
+            totalCreditos += temp.getTotalCreditosMatriculados();
             return true;
         }
     }
@@ -153,7 +153,7 @@ public class Plan implements Serializable {
                 x.setSig(z);
                 z.setAnt(x);
                 totalPeriodos--;
-                totalCreditos -= y.getTotalCreditos();
+                totalCreditos -= y.getTotalCreditosMatriculados();
                 return true;
             }
         } else {

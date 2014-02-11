@@ -61,8 +61,8 @@ public class GUI {
             fp = new FileParser();
         }
 
-        ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.HORIZONTAL);
-        //ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
+        //ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.HORIZONTAL);
+        ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
         scroll = new JScrollPane(ppanel);
         mainFrame.getContentPane().add(scroll);
         mainFrame.revalidate();

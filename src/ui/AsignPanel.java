@@ -86,7 +86,7 @@ public class AsignPanel extends JPanel implements MouseListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (asign.puedeMatr()) {
-
+                    
                 } else {
                     StringBuilder mes = new StringBuilder("No puede matricular " );
                     mes.append(asign.getNombre()).append(IO.LS.p).append("Razón: ");

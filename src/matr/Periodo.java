@@ -34,6 +34,8 @@ public class Periodo implements Serializable {
             p.setSig(cab);
         }
         cab = p;
+        totalCreditosMatriculados += p.getItem().getCreditos();
+        totalAsignaturas++;
         init();
     }
 
@@ -41,7 +43,7 @@ public class Periodo implements Serializable {
         agregarCabecera(crearNodo(a));
     }
 
-    public void agregarFinal(Nodo p) {
+    public void agregarFinal(Nodo<Asignatura> p) {
         if (vacio()) {
             cab = p;
         } else {
@@ -49,6 +51,8 @@ public class Periodo implements Serializable {
             p.setAnt(fin);
         }
         fin = p;
+        totalCreditosMatriculados += p.getItem().getCreditos();
+        totalAsignaturas++;
         init();
     }
 
@@ -98,6 +102,8 @@ public class Periodo implements Serializable {
             x.setSig(nuevo);
             nuevo.setSig(z);
             z.setAnt(nuevo);
+            totalCreditosMatriculados += nuevo.getItem().getCreditos();
+            totalAsignaturas++;
             init();
         } else {
             throw new Exception("No existe la asignatura buscada.");
@@ -119,6 +125,8 @@ public class Periodo implements Serializable {
                 cab = cab.getSig();
                 cab.setAnt(null);
             }
+            totalCreditosMatriculados -= cab.getItem().getCreditos();
+            totalAsignaturas--;
             init();
             return true;
         }
@@ -135,12 +143,14 @@ public class Periodo implements Serializable {
                 fin = fin.getAnt();
                 fin.setSig(null);
             }
+            totalCreditosMatriculados -= fin.getItem().getCreditos();
+            totalAsignaturas--;
             init();
             return true;
         }
     }
 
-    public boolean eliminar(Nodo y) {
+    public boolean eliminar(Nodo<Asignatura> y) {
         if (null != y) {
             if (cab == y) {
                 return eliminarCabecera();
@@ -151,6 +161,8 @@ public class Periodo implements Serializable {
                 Nodo z = y.getSig();
                 y.setAnt(null);
                 y.setSig(null);
+                totalCreditosMatriculados += y.getItem().getCreditos();
+                totalAsignaturas--;
                 y = null;
                 x.setSig(z);
                 z.setAnt(y);
@@ -174,7 +186,7 @@ public class Periodo implements Serializable {
         return fin;
     }
 
-    private int totalCreditos;
+    private int totalCreditosMatriculados;
     private int totalAsignaturas;
     private double promedio;
 
@@ -186,28 +198,24 @@ public class Periodo implements Serializable {
 
     public Periodo(String n) {
         nombre = n;
+        totalAsignaturas = 0;
+        totalCreditosMatriculados = 0;
     }
 
     private void init() {
-        int tc = 0;
-        int ta = 0;
         double p = 0d;
         Nodo<Asignatura> x = cab;
         while (null != x) {
-            tc += x.getItem().getCreditos();
             p += x.getItem().getNota();
-            ta++;
             x = x.getSig();
         }
-        p /= ta;
-        totalCreditos = tc;
-        totalAsignaturas = ta;
+        p /= totalAsignaturas;
         promedio = Math.rint(p * 100) / 100;
 
     }
 
-    public int getTotalCreditos() {
-        return totalCreditos;
+    public int getTotalCreditosMatriculados() {
+        return totalCreditosMatriculados;
     }
 
     public int getTotalAsignaturas() {
