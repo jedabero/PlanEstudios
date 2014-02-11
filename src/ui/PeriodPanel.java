@@ -24,8 +24,11 @@ public class PeriodPanel extends JPanel {
         this.setToolTipText(periodo.getNombre());
         JPanel center = new JPanel();
         JLabel description = new JLabel(periodo.getNombre(), JLabel.CENTER);
-        String foot = "Total creditos: " +periodo.getTotalCreditosMatriculados();
-        JLabel footer = new JLabel(foot, JLabel.CENTER);
+        StringBuilder foot = new StringBuilder("Total creditos: ");
+        foot.append(periodo.getTotalCreditosMatriculados());
+        foot.append("    ").append("Total asignaturas: ");
+        foot.append(periodo.getTotalAsignaturas());
+        JLabel footer = new JLabel(foot.toString(), JLabel.CENTER);
         add(footer, BorderLayout.SOUTH);
         
         switch (o) {

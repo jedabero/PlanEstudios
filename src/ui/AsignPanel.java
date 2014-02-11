@@ -51,9 +51,8 @@ public class AsignPanel extends JPanel implements MouseListener {
                 6);
         addMouseListener(this);
         defaultColor = parent.getBackground();
-        setToolTipText(a.toString());
 
-        JPopupMenu jpm = new JPopupMenu("menu");
+        final JPopupMenu jpm = new JPopupMenu("menu");
         JMenuItem jm0 = new JMenuItem("Editar");
         jm0.addActionListener(new ActionListener() {
 
@@ -64,6 +63,13 @@ public class AsignPanel extends JPanel implements MouseListener {
                 if (r == JOptionPane.OK_OPTION) {
                     try {
                         asign = ae.getA();
+                        if (asign.isAprobada()) {
+                            jpm.remove(1);
+                        } else if (asign.isMatriculada()) {
+                            addDesmatricular(jpm);
+                        } else if (asign.puedeMatr() && !asign.isMatriculada()) {
+                            addMatricular(jpm);
+                        }
                     } catch (NumberFormatException nfe) {
                         JOptionPane.showMessageDialog(null, "Error en Valor de Nota", "ERROR DE FORMATO", JOptionPane.ERROR_MESSAGE);
                     } catch (NullPointerException npe) {
@@ -80,27 +86,13 @@ public class AsignPanel extends JPanel implements MouseListener {
         });
         jpm.add(jm0);
 
-        JMenuItem jm1 = new JMenuItem("Matricular");
-        jm1.addActionListener(new ActionListener() {
+        if (asign.puedeMatr() && !asign.isMatriculada()) {
+            addMatricular(jpm);
+        }
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (asign.puedeMatr()) {
-                    
-                } else {
-                    StringBuilder mes = new StringBuilder("No puede matricular " );
-                    mes.append(asign.getNombre()).append(IO.LS.p).append("Razón: ");
-                    if (asign.isAprobada()) {
-                        mes.append("Ya está aprobada.");
-                    } else {
-                        
-                    }
-                    JOptionPane.showMessageDialog(null, mes, "Matricula", JOptionPane.ERROR_MESSAGE);
-                }
-                repaint();
-            }
-        });
-        jpm.add(jm1);
+        if (asign.isMatriculada()) {
+            addDesmatricular(jpm);
+        }
 
         setComponentPopupMenu(jpm);
     }
@@ -227,4 +219,33 @@ public class AsignPanel extends JPanel implements MouseListener {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private void addMatricular(final JPopupMenu jpm) {
+        JMenuItem jm1 = new JMenuItem("Matricular");
+        jm1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                asign.setMatriculada(true);
+                jpm.remove(1);
+                addDesmatricular(jpm);
+                repaint();
+            }
+        });
+        jpm.add(jm1);
+    }
+
+    private void addDesmatricular(final JPopupMenu jpm) {
+        JMenuItem jm1 = new JMenuItem("Desmatricular");
+        jm1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                asign.setMatriculada(false);
+                jpm.remove(1);
+                addMatricular(jpm);
+                repaint();
+            }
+        });
+        jpm.add(jm1);
+    }
 }

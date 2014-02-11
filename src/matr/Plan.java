@@ -203,4 +203,13 @@ public class Plan implements Serializable {
         }
         return m.toString();
     }
+    
+    public void reorganizarasignaturas() {
+        Periodo p = pri;
+        //TODO jojojo
+        
+        
+        
+    }
+    
 }
