@@ -6,14 +6,21 @@ import java.io.Serializable;
  *
  * @author Jedabero
  */
-public class Estudiante implements Serializable {
+public final class Estudiante implements Serializable {
 
-    private String nombre;
-    private String id;
-    private String programa;
+    private final String nombre;
+    private final String id;
+    private final String programa;
 
     //private Plan plan;
-    public Estudiante(String nombre, String id, String programa) {
+
+    /** Constructor basico de un estudiante, a partir de su nombre, codigo y programa.
+     *
+     * @param nombre
+     * @param id
+     * @param programa
+     */
+        public Estudiante(String nombre, String id, String programa) {
         this.nombre = nombre;
         this.id = id;
         this.programa = programa;
@@ -37,24 +44,12 @@ public class Estudiante implements Serializable {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getPrograma() {
         return programa;
-    }
-
-    public void setPrograma(String programa) {
-        this.programa = programa;
     }
 
     @Override
