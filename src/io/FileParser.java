@@ -70,7 +70,7 @@ public class FileParser {
             for (String string : seg) {
                 Periodo period = creaPeriodo(string);
                 if (null != period) {
-                    plan.agregarUltimo(period);
+                    plan.agregar(period);
                 }
             }
         } else {
@@ -98,7 +98,7 @@ public class FileParser {
             String q = linea.substring(0, fl1).trim();
             linea = linea.substring(fl1, linea.length()).trim();
             String[] p = linea.split(IO.LS.p);
-            actual = new Periodo(q);
+            actual = new Periodo(q, plan);
             for (String s : p) {
                 try {
                     actual.agregar(creaAsignatura(s.trim()));
@@ -118,7 +118,7 @@ public class FileParser {
             String[] p = linea.split(":");
             if (p.length == 9) {
                 int cred = Integer.parseInt(p[2]);
-                Asignatura req = (plan.vacio() || p[5].equals("No")) ? null : plan.getUlt().buscarAsignaturaPorCodigo(p[5]);
+                Asignatura req = (plan.vacio() || p[5].equals("No")) ? null : plan.buscarAsignaturaPorCodigo(p[5]);
                 Asignatura coreq = (plan.vacio() || p[6].equals("No")) ? null : actual.buscarAsignaturaPorCodigo(p[6]);
                 double calif = Double.parseDouble(p[7]);
                 boolean matr = Boolean.parseBoolean(p[8]);

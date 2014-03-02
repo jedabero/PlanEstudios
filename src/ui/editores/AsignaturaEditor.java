@@ -173,7 +173,7 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         Asignatura areq = null;
         Asignatura acor = null;
         if (null != p) {
-            areq = (null == p.getAnt()) ? null : p.getAnt().buscarAsignaturaPorCodigo(req);
+            areq = (null == p.getPlan().buscarPeriodoAnteriorA(p)) ? null : p.getPlan().buscarAsignaturaPorCodigo(req);
             acor = (p.vacio()) ? null : p.buscarAsignaturaPorCodigo(cor);
         }
 

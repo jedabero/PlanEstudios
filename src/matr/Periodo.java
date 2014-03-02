@@ -11,21 +11,21 @@ public class Periodo implements Serializable {
 
     private final ArrayList<Asignatura> listaAsignaturas;
 
+    private final Plan plan;
+    
     public ArrayList<Asignatura> getListaAsignaturas() {
         return listaAsignaturas;
     }
 
-    private Periodo sig;
-    private Periodo ant;
-
     private String nombre;
 
     public Periodo() {
-        this("N/A");
+        this("N/A", null);
     }
 
-    public Periodo(String n) {
+    public Periodo(String n, Plan plan) {
         nombre = n;
+        this.plan = plan;
 
         listaAsignaturas = new ArrayList<>();
 
@@ -58,23 +58,12 @@ public class Periodo implements Serializable {
     }
 
     public Asignatura buscarAsignaturaPorCodigo(String cod) {
-        Periodo este = this;
-        ArrayList<Asignatura> lista;
-        Asignatura x = null;
-        boolean encontrado = false;
-        while (null != este && !encontrado) {
-            lista = este.listaAsignaturas;
-            for (Asignatura i : lista) {
-                x = i;
-                encontrado = i.getCodigo().equalsIgnoreCase(cod);
-                if (encontrado) {
-                    break;
-                }
+        for (Asignatura asignatura : listaAsignaturas) {
+            if (asignatura.getCodigo().equalsIgnoreCase(cod)) {
+                return asignatura;
             }
-            este = este.getAnt();
         }
-
-        return x;
+        return null;
     }
 
     public boolean eliminar(Asignatura a) {
@@ -117,22 +106,6 @@ public class Periodo implements Serializable {
         return m.toString();
     }
 
-    public Periodo getSig() {
-        return sig;
-    }
-
-    public void setSig(Periodo sig) {
-        this.sig = sig;
-    }
-
-    public Periodo getAnt() {
-        return ant;
-    }
-
-    public void setAnt(Periodo ant) {
-        this.ant = ant;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -140,4 +113,9 @@ public class Periodo implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public Plan getPlan() {
+        return plan;
+    }
+    
 }

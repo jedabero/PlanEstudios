@@ -48,10 +48,8 @@ public class PlanPanel extends JPanel {
                     break;
             }
             center.setLayout(new BoxLayout(center, axis));
-            Periodo x = plan.getPri();
-            while (null != x) {
-                center.add(new PeriodPanel(x, o));
-                x = x.getSig();
+            for (Periodo p : plan.getListaPeriodos()) {
+                center.add(new PeriodPanel(p, o));
             }
         } else {
         }

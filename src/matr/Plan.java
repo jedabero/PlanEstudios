@@ -1,6 +1,7 @@
 package matr;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,9 +18,8 @@ public class Plan implements Serializable {
     private Estudiante est;
     private TIPO tipoPlan;
 
-    private Periodo pri;
-    private Periodo ult;
-
+    private final ArrayList<Periodo> listaPeriodos;
+    
     public Plan() {
         this(null);
     }
@@ -31,142 +31,56 @@ public class Plan implements Serializable {
         } else {
             tipoPlan = TIPO.PENSUM;
         }
-        totalCreditos = 0;
-        totalPeriodos = 0;
+        
+        listaPeriodos = new ArrayList<>();
+        
     }
 
     public boolean vacio() {
-        return pri == null;
+        return listaPeriodos.isEmpty();
     }
 
     public boolean hayUnSoloNodo() {
-        return (pri == ult) && !vacio();
+        return 1 == listaPeriodos.size();
     }
 
-    public void agregarPrimero(Periodo p) {
-        if (vacio()) {
-            ult = p;
-        } else {
-            pri.setAnt(p);
-            p.setSig(pri);
-        }
-        pri = p;
-        totalPeriodos++;
-        totalCreditos += p.getTotalCreditosMatriculados();
-    }
-
-    public void agregarUltimo(Periodo p) {
-        if (vacio()) {
-            pri = p;
-        } else {
-            ult.setSig(p);
-            p.setAnt(ult);
-        }
-        ult = p;
-        totalPeriodos++;
-        totalCreditos += p.getTotalCreditosMatriculados();
+    public void agregar(Periodo p) {
+        listaPeriodos.add(p);
     }
 
     public Plan periodosConCreditos(int c) {
         Plan lista = new Plan();
-        Periodo x = pri;
-        while (null != x) {
+        for (Periodo x : listaPeriodos) {
             if (c == x.getTotalCreditosMatriculados()) {
-                lista.agregarUltimo(x);
+                lista.agregar(x);
             }
-            x = x.getSig();
         }
         return lista;
     }
 
     public Periodo buscar(Periodo p) {
-        Periodo x = pri;
-        while (null != x && p != x) {
-            x = x.getSig();
-        }
-        return x;
+        int index = listaPeriodos.indexOf(p);
+        return (-1 < index) ? listaPeriodos.get(index) : null;
     }
-
-    public void agregarDespuesDe(Periodo nuevo, Periodo viejo) throws Exception {
-        Periodo x = buscar(viejo);
-        if (null != x) {
-            Periodo z = x.getSig();
-            x.setSig(nuevo);
-            nuevo.setSig(z);
-            z.setAnt(nuevo);
-
-            totalPeriodos++;
-            totalCreditos += nuevo.getTotalCreditosMatriculados();
-        } else {
-            throw new Exception("No existe el periodo buscada.");
-        }
+    
+    public Periodo buscarPeriodoAnteriorA(Periodo p) {
+        int index = listaPeriodos.indexOf(p);
+        return (0 < index) ? listaPeriodos.get(index - 1) : null;
     }
-
-    public boolean eliminarPrimero() {
-        if (vacio()) {
-            return false;
-        } else {
-            Periodo temp = pri;
-            if (hayUnSoloNodo()) {
-                pri = null;
-                ult = null;
-            } else {
-                pri = pri.getSig();
-                pri.setAnt(null);
-            }
-            totalPeriodos--;
-            totalCreditos -= temp.getTotalCreditosMatriculados();
-            return true;
-        }
-    }
-
-    public boolean eliminarUltimo() {
-        if (vacio()) {
-            return false;
-        } else {
-            Periodo temp = pri;
-            if (hayUnSoloNodo()) {
-                pri = null;
-                ult = null;
-            } else {
-                ult = ult.getAnt();
-                ult.setSig(null);
-            }
-            totalPeriodos--;
-            totalCreditos += temp.getTotalCreditosMatriculados();
-            return true;
-        }
-    }
-
+    
     public boolean eliminar(Periodo p) {
-        Periodo y = buscar(p);
-        if (null != y) {
-            if (pri == y) {
-                return eliminarPrimero();
-            } else if (ult == y) {
-                return eliminarUltimo();
-            } else {
-                Periodo x = y.getAnt();
-                Periodo z = y.getSig();
-                y.setAnt(null);
-                y.setSig(null);
-                x.setSig(z);
-                z.setAnt(x);
-                totalPeriodos--;
-                totalCreditos -= y.getTotalCreditosMatriculados();
-                return true;
+        return listaPeriodos.contains(p) && listaPeriodos.remove(p);
+    }
+
+    public Asignatura buscarAsignaturaPorCodigo(String cod) {
+        Asignatura asig = null;
+        for (Periodo periodo : listaPeriodos) {
+            asig = periodo.buscarAsignaturaPorCodigo(cod);
+            if (null != asig) {
+                return asig;
             }
-        } else {
-            return false;
         }
-    }
-
-    public Periodo getPri() {
-        return pri;
-    }
-
-    public Periodo getUlt() {
-        return ult;
+        return asig;
     }
 
     public Estudiante getEstudiante() {
@@ -177,15 +91,20 @@ public class Plan implements Serializable {
         this.est = est;
     }
 
-    private int totalPeriodos;
-    private int totalCreditos;
-
     public int getTotalCreditos() {
+        int totalCreditos = 0;
+        for (Periodo periodo : listaPeriodos) {
+            totalCreditos += periodo.getTotalCreditosMatriculados();
+        }
         return totalCreditos;
     }
 
     public int getTotalPeriodos() {
-        return totalPeriodos;
+        return listaPeriodos.size();
+    }
+
+    public ArrayList<Periodo> getListaPeriodos() {
+        return listaPeriodos;
     }
 
     @Override
@@ -195,17 +114,15 @@ public class Plan implements Serializable {
         if (vacio()) {
             m.append("vacio");
         } else {
-            Periodo x = pri;
-            while (null != x) {
+            for (Periodo x : listaPeriodos) {
                 m.append(x).append("\n");
-                x = x.getSig();
             }
         }
         return m.toString();
     }
     
     public void reorganizarasignaturas() {
-        Periodo p = pri;
+        //Periodo p = pri;
         //TODO jojojo
         
         
