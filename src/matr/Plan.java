@@ -8,14 +8,14 @@ import java.io.Serializable;
  */
 public class Plan implements Serializable {
 
-    public enum tipo {
+    public enum TIPO {
 
         PENSUM,
         PLAN
     }
 
     private Estudiante est;
-    private tipo tipoPlan;
+    private TIPO tipoPlan;
 
     private Periodo pri;
     private Periodo ult;
@@ -26,10 +26,10 @@ public class Plan implements Serializable {
 
     public Plan(Estudiante estudiante) {
         if (null != estudiante) {
-            tipoPlan = tipo.PLAN;
+            tipoPlan = TIPO.PLAN;
             est = estudiante;
         } else {
-            tipoPlan = tipo.PENSUM;
+            tipoPlan = TIPO.PENSUM;
         }
         totalCreditos = 0;
         totalPeriodos = 0;

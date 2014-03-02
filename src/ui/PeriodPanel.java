@@ -3,6 +3,7 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +29,8 @@ public class PeriodPanel extends JPanel {
         foot.append(periodo.getTotalCreditosMatriculados());
         foot.append("    ").append("Total asignaturas: ");
         foot.append(periodo.getTotalAsignaturas());
+        foot.append("    ").append("Promedio: ");
+        foot.append(periodo.getPromedio());
         JLabel footer = new JLabel(foot.toString(), JLabel.CENTER);
         add(footer, BorderLayout.SOUTH);
         
@@ -43,10 +46,9 @@ public class PeriodPanel extends JPanel {
                 break;
         }
         
-        Nodo<Asignatura> x = periodo.getCab();
-        while (null != x) {
-            center.add(new AsignPanel(this, x.getItem()), BorderLayout.CENTER);
-            x = x.getSig();
+        ArrayList<Asignatura> lista = periodo.getListaAsignaturas();
+        for (Asignatura x : lista) {
+            center.add(new AsignPanel(this, x), BorderLayout.CENTER);
         }
 
         add(center, BorderLayout.CENTER);

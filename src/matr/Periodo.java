@@ -1,6 +1,7 @@
 package matr;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -8,187 +9,14 @@ import java.io.Serializable;
  */
 public class Periodo implements Serializable {
 
-    private Nodo<Asignatura> cab;
-    private Nodo<Asignatura> fin;
+    private final ArrayList<Asignatura> listaAsignaturas;
+
+    public ArrayList<Asignatura> getListaAsignaturas() {
+        return listaAsignaturas;
+    }
 
     private Periodo sig;
     private Periodo ant;
-
-    public boolean vacio() {
-        return cab == null;
-    }
-
-    public boolean hayUnSoloNodo() {
-        return cab == fin;
-    }
-
-    public Nodo crearNodo(Asignatura a) {
-        return new Nodo(a);
-    }
-
-    public void agregarCabecera(Nodo<Asignatura> p) {
-        if (vacio()) {
-            fin = p;
-        } else {
-            cab.setAnt(p);
-            p.setSig(cab);
-        }
-        cab = p;
-        totalCreditosMatriculados += p.getItem().getCreditos();
-        totalAsignaturas++;
-        init();
-    }
-
-    public void agregarCabecera(Asignatura a) {
-        agregarCabecera(crearNodo(a));
-    }
-
-    public void agregarFinal(Nodo<Asignatura> p) {
-        if (vacio()) {
-            cab = p;
-        } else {
-            fin.setSig(p);
-            p.setAnt(fin);
-        }
-        fin = p;
-        totalCreditosMatriculados += p.getItem().getCreditos();
-        totalAsignaturas++;
-        init();
-    }
-
-    public void agregarFinal(Asignatura a) {
-        agregarFinal(crearNodo(a));
-    }
-
-    public Periodo asiganturasConCreditos(int c) {
-        Periodo lista = new Periodo();
-        Nodo<Asignatura> x = cab;
-        while (null != x) {
-            if (c == x.getItem().getCreditos()) {
-                lista.agregarFinal(x);
-            }
-            x = x.getSig();
-        }
-        return lista;
-    }
-
-    public Nodo<Asignatura> buscarPorCodigo(String cod) {
-        Periodo este = this;
-        Nodo<Asignatura> x = null;
-        boolean encontrado = false;
-        while (null != este && !encontrado) {
-            x = este.cab;
-            while (null != x && !encontrado) {
-                encontrado = x.getItem().getCodigo().equalsIgnoreCase(cod);
-                if (!encontrado) {
-                    x = x.getSig();
-                }
-            }
-            este = este.getAnt();
-        }
-
-        return x;
-    }
-
-    public Asignatura buscarAsignaturaPorCod(String cod) {
-        Nodo<Asignatura> res = buscarPorCodigo(cod);
-        return (null != res) ? res.getItem() : null;
-    }
-
-    public void agregarDespuesDe(Nodo<Asignatura> nuevo, Asignatura vieja) throws Exception {
-        Nodo<Asignatura> x = buscarPorCodigo(vieja.getCodigo());
-        if (null != x) {
-            Nodo<Asignatura> z = x.getSig();
-            x.setSig(nuevo);
-            nuevo.setSig(z);
-            z.setAnt(nuevo);
-            totalCreditosMatriculados += nuevo.getItem().getCreditos();
-            totalAsignaturas++;
-            init();
-        } else {
-            throw new Exception("No existe la asignatura buscada.");
-        }
-    }
-
-    public void agregarDespuesDe(Asignatura nueva, Asignatura vieja) throws Exception {
-        agregarDespuesDe(crearNodo(nueva), vieja);
-    }
-
-    public boolean eliminarCabecera() {
-        if (vacio()) {
-            return false;
-        } else {
-            if (hayUnSoloNodo()) {
-                cab = null;
-                fin = null;
-            } else {
-                cab = cab.getSig();
-                cab.setAnt(null);
-            }
-            totalCreditosMatriculados -= cab.getItem().getCreditos();
-            totalAsignaturas--;
-            init();
-            return true;
-        }
-    }
-
-    public boolean eliminarFinal() {
-        if (vacio()) {
-            return false;
-        } else {
-            if (hayUnSoloNodo()) {
-                cab = null;
-                fin = null;
-            } else {
-                fin = fin.getAnt();
-                fin.setSig(null);
-            }
-            totalCreditosMatriculados -= fin.getItem().getCreditos();
-            totalAsignaturas--;
-            init();
-            return true;
-        }
-    }
-
-    public boolean eliminar(Nodo<Asignatura> y) {
-        if (null != y) {
-            if (cab == y) {
-                return eliminarCabecera();
-            } else if (fin == y) {
-                return eliminarFinal();
-            } else {
-                Nodo x = y.getAnt();
-                Nodo z = y.getSig();
-                y.setAnt(null);
-                y.setSig(null);
-                totalCreditosMatriculados += y.getItem().getCreditos();
-                totalAsignaturas--;
-                y = null;
-                x.setSig(z);
-                z.setAnt(y);
-                init();
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    public boolean eliminar(Asignatura a) {
-        return eliminar(buscarPorCodigo(a.getCodigo()));
-    }
-
-    public Nodo<Asignatura> getCab() {
-        return cab;
-    }
-
-    public Nodo<Asignatura> getFin() {
-        return fin;
-    }
-
-    private int totalCreditosMatriculados;
-    private int totalAsignaturas;
-    private double promedio;
 
     private String nombre;
 
@@ -198,31 +26,81 @@ public class Periodo implements Serializable {
 
     public Periodo(String n) {
         nombre = n;
-        totalAsignaturas = 0;
-        totalCreditosMatriculados = 0;
+
+        listaAsignaturas = new ArrayList<>();
+
     }
 
-    private void init() {
-        double p = 0d;
-        Nodo<Asignatura> x = cab;
-        while (null != x) {
-            p += x.getItem().getNota();
-            x = x.getSig();
-        }
-        p /= totalAsignaturas;
-        promedio = Math.rint(p * 100) / 100;
+    public boolean vacio() {
+        return listaAsignaturas.isEmpty();
+    }
 
+    public boolean hayUnSoloNodo() {
+        return 1 == listaAsignaturas.size();
+    }
+
+    public Nodo crearNodo(Asignatura a) {
+        return new Nodo(a);
+    }
+
+    public void agregar(Asignatura a) {
+        listaAsignaturas.add(a);
+    }
+
+    public Periodo asiganturasConCreditos(int c) {
+        Periodo lista = new Periodo();
+        for (Asignatura x : listaAsignaturas) {
+            if (c == x.getCreditos()) {
+                lista.agregar(x);
+            }
+        }
+        return lista;
+    }
+
+    public Asignatura buscarAsignaturaPorCodigo(String cod) {
+        Periodo este = this;
+        ArrayList<Asignatura> lista;
+        Asignatura x = null;
+        boolean encontrado = false;
+        while (null != este && !encontrado) {
+            lista = este.listaAsignaturas;
+            for (Asignatura i : lista) {
+                x = i;
+                encontrado = i.getCodigo().equalsIgnoreCase(cod);
+                if (encontrado) {
+                    break;
+                }
+            }
+            este = este.getAnt();
+        }
+
+        return x;
+    }
+
+    public boolean eliminar(Asignatura a) {
+        return listaAsignaturas.contains(a) && listaAsignaturas.remove(a);
     }
 
     public int getTotalCreditosMatriculados() {
+        int totalCreditosMatriculados = 0;
+        for (Asignatura asignatura : listaAsignaturas) {
+            totalCreditosMatriculados += asignatura.getCreditos();
+        }
         return totalCreditosMatriculados;
     }
 
     public int getTotalAsignaturas() {
-        return totalAsignaturas;
+        return listaAsignaturas.size();
     }
 
     public double getPromedio() {
+        double promedio = 0;
+        for (Asignatura asignatura : listaAsignaturas) {
+            promedio += asignatura.getNota();
+        }
+        promedio *= 1000;
+        int redondeo = (int) (promedio / getTotalAsignaturas());
+        promedio = ((double) redondeo) / 1000;
         return promedio;
     }
 
@@ -232,10 +110,8 @@ public class Periodo implements Serializable {
         if (vacio()) {
             m.append("vacia");
         } else {
-            Nodo x = cab;
-            while (null != x) {
+            for (Asignatura x : listaAsignaturas) {
                 m.append("\n").append(x);
-                x = x.getSig();
             }
         }
         return m.toString();

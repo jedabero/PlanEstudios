@@ -101,7 +101,7 @@ public class FileParser {
             actual = new Periodo(q);
             for (String s : p) {
                 try {
-                    actual.agregarFinal(creaAsignatura(s.trim()));
+                    actual.agregar(creaAsignatura(s.trim()));
                 } catch (Exception e) {
                     e.printStackTrace(System.err);
                 }
@@ -118,8 +118,8 @@ public class FileParser {
             String[] p = linea.split(":");
             if (p.length == 9) {
                 int cred = Integer.parseInt(p[2]);
-                Asignatura req = (plan.vacio() || p[5].equals("No")) ? null : plan.getUlt().buscarAsignaturaPorCod(p[5]);
-                Asignatura coreq = (plan.vacio() || p[6].equals("No")) ? null : actual.buscarAsignaturaPorCod(p[6]);
+                Asignatura req = (plan.vacio() || p[5].equals("No")) ? null : plan.getUlt().buscarAsignaturaPorCodigo(p[5]);
+                Asignatura coreq = (plan.vacio() || p[6].equals("No")) ? null : actual.buscarAsignaturaPorCodigo(p[6]);
                 double calif = Double.parseDouble(p[7]);
                 boolean matr = Boolean.parseBoolean(p[8]);
                 Asignatura asign = new Asignatura(p[0], p[1], cred, p[3], p[4], req, coreq, calif);
