@@ -10,9 +10,9 @@ public class Asignatura implements Serializable {
 
     private boolean puedeMatr;
 
-    private String nombre;
-    private String codigo;
-    private int creditos;
+    private final String nombre;
+    private final String codigo;
+    private final int creditos;
     private double nota;
     private boolean aprobada;
 
@@ -20,8 +20,8 @@ public class Asignatura implements Serializable {
     private String periodo;
     private String nivel;
 
-    private Asignatura requisito;
-    private Asignatura corequisito;
+    private final Asignatura requisito;
+    private final Asignatura corequisito;
 
     /**
      * Crea una asignatura con todos los parametros necesarios.
@@ -102,24 +102,12 @@ public class Asignatura implements Serializable {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
     public int getCreditos() {
         return creditos;
-    }
-
-    public void setCreditos(int creditos) {
-        this.creditos = creditos;
     }
 
     public double getNota() {
@@ -135,16 +123,8 @@ public class Asignatura implements Serializable {
         return requisito;
     }
 
-    public void setRequisito(Asignatura requisito) {
-        this.requisito = requisito;
-    }
-
     public Asignatura getCorequisito() {
         return corequisito;
-    }
-
-    public void setCorequisito(Asignatura corequisito) {
-        this.corequisito = corequisito;
     }
 
     public void updatePuedeMatr() {
