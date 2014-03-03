@@ -67,6 +67,7 @@ public class GUI {
         mainFrame.getContentPane().add(scroll);
         mainFrame.revalidate();
 
+        fp.getPlan().reorganizarasignaturas();
         //System.out.println(mainFrame.getContentPane().getSize());
     }
 

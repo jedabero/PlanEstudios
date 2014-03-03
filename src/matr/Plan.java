@@ -2,6 +2,7 @@ package matr;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  *
@@ -121,12 +122,35 @@ public class Plan implements Serializable {
         return m.toString();
     }
     
-    public void reorganizarasignaturas() {
-        //Periodo p = pri;
-        //TODO jojojo
+    public Plan reorganizarasignaturas() {
+        Plan plan = new Plan(this.getEstudiante());
+        TreeMap<String, Periodo> periodos = new TreeMap<>();
+        if (!vacio()) {
+            for (Periodo p : listaPeriodos) {
+                for (Asignatura a : p.getListaAsignaturas()) {
+                    String per = a.getPeriodo().trim();
+                    if (!per.isEmpty() && !periodos.containsKey(per)) {
+                        periodos.put(per, new Periodo(per, plan));
+                    } else if(per.isEmpty() && !periodos.containsKey(a.getNivel())) {
+                        periodos.put(a.getNivel(), new Periodo(a.getNivel(), plan));
+                    }
+                    
+                    if(periodos.containsKey(per)) {
+                        periodos.get(per).agregar(a);
+                    } else if (periodos.containsKey(a.getNivel())) {
+                        periodos.get(a.getNivel()).agregar(a);
+                    }
+                    
+                }
+            }
+        }
         
+        for (Periodo periodo : periodos.values()) {
+            plan.agregar(periodo);
+        }
         
-        
+        System.out.println(plan);
+        return plan;
     }
     
 }
