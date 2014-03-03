@@ -63,6 +63,7 @@ public class FileParser {
         if (null != linea && !linea.isEmpty()) {
             int fl1 = linea.indexOf(IO.LS.p);
             int fl2 = linea.indexOf(IO.LS.p, fl1 + 1);
+            System.out.println(fl1+", "+fl2);
             String q = linea.substring(fl1, fl2).trim();
             plan = new Plan(creaEstudiante(q));
             linea = linea.substring(fl2 + 1).trim();

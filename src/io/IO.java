@@ -19,4 +19,9 @@ public enum IO {
         this.p = p;
     }
 
+    @Override
+    public String toString() {
+        return "IO{" + "p=" + p + '}';
+    }
+
 }

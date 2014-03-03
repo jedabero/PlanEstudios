@@ -1,5 +1,6 @@
 package matr;
 
+import io.IO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -13,7 +14,7 @@ public class Periodo implements Serializable {
     private final ArrayList<Asignatura> listaAsignaturas;
 
     private final Plan plan;
-    
+
     public ArrayList<Asignatura> getListaAsignaturas() {
         return listaAsignaturas;
     }
@@ -93,7 +94,7 @@ public class Periodo implements Serializable {
     public String getNombre() {
         return nombre;
     }
-    
+
     public Plan getPlan() {
         return plan;
     }
@@ -124,7 +125,7 @@ public class Periodo implements Serializable {
         }
         return Objects.equals(this.nombre, other.nombre);
     }
-    
+
     @Override
     public String toString() {
         StringBuilder m = new StringBuilder("(").append(nombre);
@@ -132,7 +133,7 @@ public class Periodo implements Serializable {
             m.append("vacia");
         } else {
             for (Asignatura x : listaAsignaturas) {
-                m.append("\n").append(x);
+                m.append(IO.LS.p).append(x);
             }
         }
         return m.toString();

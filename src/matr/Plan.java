@@ -1,5 +1,6 @@
 package matr;
 
+import io.IO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class Plan implements Serializable {
     private final TIPO tipoPlan;
 
     private final ArrayList<Periodo> listaPeriodos;
-    
+
     public Plan() {
         this(null);
     }
@@ -32,9 +33,9 @@ public class Plan implements Serializable {
         } else {
             tipoPlan = TIPO.PENSUM;
         }
-        
+
         listaPeriodos = new ArrayList<>();
-        
+
     }
 
     public boolean vacio() {
@@ -63,12 +64,12 @@ public class Plan implements Serializable {
         int index = listaPeriodos.indexOf(p);
         return (-1 < index) ? listaPeriodos.get(index) : null;
     }
-    
+
     public Periodo buscarPeriodoAnteriorA(Periodo p) {
         int index = listaPeriodos.indexOf(p);
         return (0 < index) ? listaPeriodos.get(index - 1) : null;
     }
-    
+
     public Periodo buscarPeriodoPorNombre(String nombre) {
         for (Periodo periodo : listaPeriodos) {
             if (periodo.getNombre().equalsIgnoreCase(nombre)) {
@@ -77,7 +78,7 @@ public class Plan implements Serializable {
         }
         return null;
     }
-    
+
     public boolean eliminar(Periodo p) {
         return listaPeriodos.contains(p) && listaPeriodos.remove(p);
     }
@@ -125,23 +126,23 @@ public class Plan implements Serializable {
                     String per = a.getPeriodo().trim();
                     Periodo periodoPer;
                     Periodo periodoNivel;
-                    
+
                     if (!per.isEmpty() && null == (periodoPer = plan.buscarPeriodoPorNombre(per))) {
                         plan.agregar(new Periodo(per, plan));
-                    } else if(per.isEmpty() && null == (periodoNivel = plan.buscarPeriodoPorNombre(a.getNivel()))) {
+                    } else if (per.isEmpty() && null == (periodoNivel = plan.buscarPeriodoPorNombre(a.getNivel()))) {
                         plan.agregar(new Periodo(a.getNivel(), plan));
                     }
-                    
-                    if(null != (periodoPer = plan.buscarPeriodoPorNombre(per))) {
+
+                    if (null != (periodoPer = plan.buscarPeriodoPorNombre(per))) {
                         periodoPer.agregar(a);
                     } else if (null != (periodoNivel = plan.buscarPeriodoPorNombre(a.getNivel()))) {
                         periodoNivel.agregar(a);
                     }
-                    
+
                 }
             }
         }
-        
+
         return plan;
     }
 
@@ -167,16 +168,16 @@ public class Plan implements Serializable {
         }
         return Objects.equals(this.listaPeriodos, other.listaPeriodos);
     }
-    
+
     @Override
     public String toString() {
-        StringBuilder m = new StringBuilder(tipoPlan.toString()).append("\n");
-        m.append((null != est) ? est : "").append("\n");
+        StringBuilder m = new StringBuilder(tipoPlan.toString()).append(IO.LS.p);
+        m.append((null != est) ? est : "").append(IO.LS.p);
         if (vacio()) {
             m.append("vacio");
         } else {
             for (Periodo x : listaPeriodos) {
-                m.append(x).append("\n");
+                m.append(x).append(IO.LS.p);
             }
         }
         return m.toString();

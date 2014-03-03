@@ -33,7 +33,7 @@ public class PeriodPanel extends JPanel {
         foot.append(periodo.getPromedio());
         JLabel footer = new JLabel(foot.toString(), JLabel.CENTER);
         add(footer, BorderLayout.SOUTH);
-        
+
         switch (o) {
             case HORIZONTAL:
                 int h = 110 * (periodo.getTotalAsignaturas() / 2 + 1);
@@ -45,7 +45,7 @@ public class PeriodPanel extends JPanel {
                 add(description, BorderLayout.WEST);
                 break;
         }
-        
+
         ArrayList<Asignatura> lista = periodo.getListaAsignaturas();
         for (Asignatura x : lista) {
             center.add(new AsignPanel(this, x), BorderLayout.CENTER);

@@ -63,6 +63,7 @@ public class AsignPanel extends JPanel implements MouseListener {
                 if (r == JOptionPane.OK_OPTION) {
                     try {
                         asign = ae.getA();
+                        asign.update();
                         if (asign.isAprobada()) {
                             jpm.remove(1);
                         } else if (asign.isMatriculada()) {

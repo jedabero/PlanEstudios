@@ -29,14 +29,14 @@ public class PlanPanel extends JPanel {
         StringBuilder desc = new StringBuilder(plan.getEstudiante().toString());
         JLabel description = new JLabel(desc.toString(), JLabel.CENTER);
         add(description, BorderLayout.NORTH);
-        
+
         StringBuilder foot = new StringBuilder("Total creditos: ");
         foot.append(plan.getTotalCreditos());
         foot.append("    ").append("Total periodos: ");
         foot.append(plan.getTotalPeriodos());
         JLabel footer = new JLabel(foot.toString(), JLabel.CENTER);
         add(footer, BorderLayout.SOUTH);
-        
+
         if (!plan.vacio()) {
             int axis = 0;
             switch (o) {

@@ -180,7 +180,7 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         int cre = (int) jsCreditos.getValue();
         double not = Double.parseDouble(txtNota.getText());
 
-        boolean m = (null != a)?a.isMatriculada():false;
+        boolean m = (null != a) ? a.isMatriculada() : false;
         a = new Asignatura(nom, cod, cre, per, niv, areq, acor, not);
         a.setMatriculada(m);
         return a;

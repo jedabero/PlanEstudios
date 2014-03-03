@@ -1,14 +1,16 @@
 package ui;
 
+import io.FileCreator;
 import io.FileParser;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import io.IO;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import matr.Plan;
 
 /**
  *
@@ -61,13 +63,17 @@ public class GUI {
             fp = new FileParser();
         }
 
-        ppanel = new PlanPanel(fp.getPlan().reorganizarAsignaturas(), PlanPanel.Orientacion.HORIZONTAL);
+        Plan plan = fp.getPlan().reorganizarAsignaturas();
+
+        ppanel = new PlanPanel(plan, PlanPanel.Orientacion.HORIZONTAL);
         //ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
         scroll = new JScrollPane(ppanel);
         mainFrame.getContentPane().add(scroll);
         mainFrame.revalidate();
-
-        //System.out.println(mainFrame.getContentPane().getSize());
+        try {
+            FileCreator fc = new FileCreator(fppath, plan, 0);
+        } catch (Exception ex) {
+        }
     }
 
     private void setSystemLandF() {

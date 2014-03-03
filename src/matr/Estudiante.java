@@ -14,14 +14,15 @@ public final class Estudiante implements Serializable {
     private final String programa;
 
     //private Plan plan;
-
-    /** Constructor basico de un estudiante, a partir de su nombre, codigo y programa.
+    /**
+     * Constructor basico de un estudiante, a partir de su nombre, codigo y
+     * programa.
      *
      * @param nombre
      * @param id
      * @param programa
      */
-        public Estudiante(String nombre, String id, String programa) {
+    public Estudiante(String nombre, String id, String programa) {
         this.nombre = nombre;
         this.id = id;
         this.programa = programa;
