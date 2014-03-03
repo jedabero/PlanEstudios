@@ -69,6 +69,15 @@ public class Plan implements Serializable {
         return (0 < index) ? listaPeriodos.get(index - 1) : null;
     }
     
+    public Periodo buscarPeriodoPorNombre(String nombre) {
+        for (Periodo periodo : listaPeriodos) {
+            if (periodo.getNombre().equalsIgnoreCase(nombre)) {
+                return periodo;
+            }
+        }
+        return null;
+    }
+    
     public boolean eliminar(Periodo p) {
         return listaPeriodos.contains(p) && listaPeriodos.remove(p);
     }
@@ -124,32 +133,29 @@ public class Plan implements Serializable {
     
     public Plan reorganizarasignaturas() {
         Plan plan = new Plan(this.getEstudiante());
-        TreeMap<String, Periodo> periodos = new TreeMap<>();
         if (!vacio()) {
             for (Periodo p : listaPeriodos) {
                 for (Asignatura a : p.getListaAsignaturas()) {
                     String per = a.getPeriodo().trim();
-                    if (!per.isEmpty() && !periodos.containsKey(per)) {
-                        periodos.put(per, new Periodo(per, plan));
-                    } else if(per.isEmpty() && !periodos.containsKey(a.getNivel())) {
-                        periodos.put(a.getNivel(), new Periodo(a.getNivel(), plan));
+                    Periodo periodoPer;
+                    Periodo periodoNivel;
+                    
+                    if (!per.isEmpty() && null == (periodoPer = plan.buscarPeriodoPorNombre(per))) {
+                        plan.agregar(new Periodo(per, plan));
+                    } else if(per.isEmpty() && null == (periodoNivel = plan.buscarPeriodoPorNombre(a.getNivel()))) {
+                        plan.agregar(new Periodo(a.getNivel(), plan));
                     }
                     
-                    if(periodos.containsKey(per)) {
-                        periodos.get(per).agregar(a);
-                    } else if (periodos.containsKey(a.getNivel())) {
-                        periodos.get(a.getNivel()).agregar(a);
+                    if(null != (periodoPer = plan.buscarPeriodoPorNombre(per))) {
+                        periodoPer.agregar(a);
+                    } else if (null != (periodoNivel = plan.buscarPeriodoPorNombre(a.getNivel()))) {
+                        periodoNivel.agregar(a);
                     }
                     
                 }
             }
         }
         
-        for (Periodo periodo : periodos.values()) {
-            plan.agregar(periodo);
-        }
-        
-        System.out.println(plan);
         return plan;
     }
     
