@@ -2,6 +2,7 @@ package matr;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Periodo implements Serializable {
         return listaAsignaturas;
     }
 
-    private String nombre;
+    private final String nombre;
 
     public Periodo() {
         this("N/A", null);
@@ -35,12 +36,8 @@ public class Periodo implements Serializable {
         return listaAsignaturas.isEmpty();
     }
 
-    public boolean hayUnSoloNodo() {
+    public boolean hayUnSolo() {
         return 1 == listaAsignaturas.size();
-    }
-
-    public Nodo crearNodo(Asignatura a) {
-        return new Nodo(a);
     }
 
     public void agregar(Asignatura a) {
@@ -93,6 +90,41 @@ public class Periodo implements Serializable {
         return promedio;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public Plan getPlan() {
+        return plan;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.listaAsignaturas);
+        hash = 59 * hash + Objects.hashCode(this.plan);
+        hash = 59 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Periodo other = (Periodo) obj;
+        if (!Objects.equals(this.listaAsignaturas, other.listaAsignaturas)) {
+            return false;
+        }
+        if (!Objects.equals(this.plan, other.plan)) {
+            return false;
+        }
+        return Objects.equals(this.nombre, other.nombre);
+    }
+    
     @Override
     public String toString() {
         StringBuilder m = new StringBuilder("(").append(nombre);
@@ -106,16 +138,4 @@ public class Periodo implements Serializable {
         return m.toString();
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Plan getPlan() {
-        return plan;
-    }
-    
 }

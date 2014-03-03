@@ -2,7 +2,7 @@ package matr;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.Objects;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Plan implements Serializable {
     }
 
     private Estudiante est;
-    private TIPO tipoPlan;
+    private final TIPO tipoPlan;
 
     private final ArrayList<Periodo> listaPeriodos;
     
@@ -117,21 +117,7 @@ public class Plan implements Serializable {
         return listaPeriodos;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder m = new StringBuilder(tipoPlan.toString()).append("\n");
-        m.append((null != est) ? est : "").append("\n");
-        if (vacio()) {
-            m.append("vacio");
-        } else {
-            for (Periodo x : listaPeriodos) {
-                m.append(x).append("\n");
-            }
-        }
-        return m.toString();
-    }
-    
-    public Plan reorganizarasignaturas() {
+    public Plan reorganizarAsignaturas() {
         Plan plan = new Plan(this.getEstudiante());
         if (!vacio()) {
             for (Periodo p : listaPeriodos) {
@@ -158,5 +144,41 @@ public class Plan implements Serializable {
         
         return plan;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 11 * hash + Objects.hashCode(this.tipoPlan);
+        hash = 11 * hash + Objects.hashCode(this.listaPeriodos);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Plan other = (Plan) obj;
+        if (this.tipoPlan != other.tipoPlan) {
+            return false;
+        }
+        return Objects.equals(this.listaPeriodos, other.listaPeriodos);
+    }
     
+    @Override
+    public String toString() {
+        StringBuilder m = new StringBuilder(tipoPlan.toString()).append("\n");
+        m.append((null != est) ? est : "").append("\n");
+        if (vacio()) {
+            m.append("vacio");
+        } else {
+            for (Periodo x : listaPeriodos) {
+                m.append(x).append("\n");
+            }
+        }
+        return m.toString();
+    }
 }

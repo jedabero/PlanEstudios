@@ -1,6 +1,7 @@
 package matr;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
@@ -50,6 +51,33 @@ public final class Estudiante implements Serializable {
 
     public String getPrograma() {
         return programa;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 23;
+        hash = 97 * hash + Objects.hashCode(this.nombre);
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.programa);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Estudiante other = (Estudiante) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return Objects.equals(this.programa, other.programa);
     }
 
     @Override
