@@ -39,7 +39,7 @@ public class Matr {
         ///*
         FileParser fp;
         try {
-            fp = new FileParser(IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.pln");
+            fp = new FileParser(IO.USER.s + IO.FS.s + "matr" + IO.FS.s + "asd.pln");
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace(System.err);
             fp = null;

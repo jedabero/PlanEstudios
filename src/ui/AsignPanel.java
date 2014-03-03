@@ -7,18 +7,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import io.IO;
 import matr.Asignatura;
-import ui.editores.AsignaturaEditor;
 
 /**
  *
@@ -52,50 +45,6 @@ public class AsignPanel extends JPanel implements MouseListener {
         addMouseListener(this);
         defaultColor = parent.getBackground();
 
-        final JPopupMenu jpm = new JPopupMenu("menu");
-        JMenuItem jm0 = new JMenuItem("Editar");
-        jm0.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent aev) {
-                AsignaturaEditor ae = new AsignaturaEditor(asign, parent.getPeriodo());
-                int r = JOptionPane.showConfirmDialog(null, ae, "Title", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (r == JOptionPane.OK_OPTION) {
-                    try {
-                        asign = ae.getA();
-                        asign.update();
-                        if (asign.isAprobada()) {
-                            jpm.remove(1);
-                        } else if (asign.isMatriculada()) {
-                            addDesmatricular(jpm);
-                        } else if (asign.puedeMatr() && !asign.isMatriculada()) {
-                            addMatricular(jpm);
-                        }
-                    } catch (NumberFormatException nfe) {
-                        JOptionPane.showMessageDialog(null, "Error en Valor de Nota", "ERROR DE FORMATO", JOptionPane.ERROR_MESSAGE);
-                    } catch (NullPointerException npe) {
-                        JOptionPane.showMessageDialog(null, "Error en Valor de Nota\n" + npe.getMessage(), "VACIO", JOptionPane.ERROR_MESSAGE);
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, ex.getMessage(), "VACIO", JOptionPane.ERROR_MESSAGE);
-                    }
-
-                } else {
-                    System.out.println("No");
-                }
-                repaint();
-            }
-        });
-        jpm.add(jm0);
-
-        if (asign.puedeMatr() && !asign.isMatriculada()) {
-            addMatricular(jpm);
-        }
-
-        if (asign.isMatriculada()) {
-            addDesmatricular(jpm);
-        }
-
-        setComponentPopupMenu(jpm);
     }
 
     @Override
@@ -220,33 +169,4 @@ public class AsignPanel extends JPanel implements MouseListener {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void addMatricular(final JPopupMenu jpm) {
-        JMenuItem jm1 = new JMenuItem("Matricular");
-        jm1.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                asign.setMatriculada(true);
-                jpm.remove(1);
-                addDesmatricular(jpm);
-                repaint();
-            }
-        });
-        jpm.add(jm1);
-    }
-
-    private void addDesmatricular(final JPopupMenu jpm) {
-        JMenuItem jm1 = new JMenuItem("Desmatricular");
-        jm1.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                asign.setMatriculada(false);
-                jpm.remove(1);
-                addMatricular(jpm);
-                repaint();
-            }
-        });
-        jpm.add(jm1);
-    }
 }

@@ -24,26 +24,26 @@ public class FileCreator {
         this.plan = plan;
         switch (tipo) {
             case OBJ:
-                if (pathName.endsWith(IO.EXTO.p)) {
+                if (pathName.endsWith(IO.EXTO.s)) {
                     //Nada
-                } else if (pathName.endsWith(IO.EXT.p)) {
+                } else if (pathName.endsWith(IO.EXT.s)) {
                     throw new Exception("Tipo equivocado de archivo.");
                 } else if (pathName.lastIndexOf(".") > pathName.length() - 5) {
                     throw new Exception("Tipo de extension equivocado.");
                 } else {
-                    pathName += IO.EXTO.p;
+                    pathName += IO.EXTO.s;
                 }
                 crearObj(pathName);
                 break;
             case TXT:
-                if (pathName.endsWith(IO.EXT.p)) {
+                if (pathName.endsWith(IO.EXT.s)) {
                     //Nada
-                } else if (pathName.endsWith(IO.EXTO.p)) {
+                } else if (pathName.endsWith(IO.EXTO.s)) {
                     throw new Exception("Tipo equivocado de archivo.");
                 } else if (pathName.lastIndexOf(".") > pathName.length() - 5) {
                     throw new Exception("Tipo de extension equivocado.");
                 } else {
-                    pathName += IO.EXT.p;
+                    pathName += IO.EXT.s;
                 }
                 crearTexto(pathName);
                 break;

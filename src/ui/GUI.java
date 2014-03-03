@@ -23,7 +23,7 @@ public class GUI {
     private PlanPanel ppanel;
     private JScrollPane scroll;
 
-    public static final String matrDir = IO.USER.p + IO.FS.p + "matr" + IO.FS.p;
+    public static final String matrDir = IO.USER.s + IO.FS.s + "matr" + IO.FS.s;
 
     public static void main(String[] args) {
         GUI gui = new GUI();
@@ -33,16 +33,16 @@ public class GUI {
     private void start() {
         mainFrame = new JFrame("Matr");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        System.out.println(IO.OS.p);
+        System.out.println(IO.OS.s);
         DisplayMode dm = mainFrame.getGraphicsConfiguration().getDevice().getDisplayMode();
 
         Dimension maxSize = new Dimension(dm.getWidth(), dm.getHeight());
         //System.out.println(maxSize);
         Dimension size;
         //TODO window stuff
-        if (IO.OS.p.contains("Windows")) {
+        if (IO.OS.s.contains("Windows")) {
             size = new Dimension(1056, 688);
-        } else if (IO.OS.p.contains("Linux")) {
+        } else if (IO.OS.s.contains("Linux")) {
             size = new Dimension(1050, 680);
         } else {
             int h = (int) (maxSize.width / 1.6);
@@ -54,7 +54,7 @@ public class GUI {
         mainFrame.setLocationRelativeTo(mainFrame.getRootPane());
         mainFrame.setVisible(true);
 
-        String fppath = IO.USER.p + IO.FS.p + "matr" + IO.FS.p + "asd.plan";
+        String fppath = IO.USER.s + IO.FS.s + "matr" + IO.FS.s + "asd.plan";
         FileParser fp;
         try {
             fp = new FileParser(fppath);

@@ -67,7 +67,7 @@ public class NewClass {
         }//
         JFileChooser jfc = new JFileChooser(GUI.matrDir);
         jfc.setMultiSelectionEnabled(false);
-        System.out.println(IO.USER.p);
+        System.out.println(IO.USER.s);
         System.out.println(jfc.showSaveDialog(null));
         File f = new File(jfc.getSelectedFile().getPath() + ".plan");
         try {

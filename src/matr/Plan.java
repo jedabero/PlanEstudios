@@ -171,13 +171,13 @@ public class Plan implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder m = new StringBuilder(tipoPlan.toString()).append(IO.LS.p);
-        m.append((null != est) ? est : "").append(IO.LS.p);
+        StringBuilder m = new StringBuilder(tipoPlan.toString()).append(IO.LS.s);
+        m.append((null != est) ? est : "").append(IO.LS.s);
         if (vacio()) {
             m.append("vacio");
         } else {
             for (Periodo x : listaPeriodos) {
-                m.append(x).append(IO.LS.p);
+                m.append(x).append(IO.LS.s);
             }
         }
         return m.toString();

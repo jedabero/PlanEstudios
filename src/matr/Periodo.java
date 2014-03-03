@@ -133,7 +133,7 @@ public class Periodo implements Serializable {
             m.append("vacia");
         } else {
             for (Asignatura x : listaAsignaturas) {
-                m.append(IO.LS.p).append(x);
+                m.append(IO.LS.s).append(x);
             }
         }
         return m.toString();

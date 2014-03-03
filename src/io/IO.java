@@ -13,15 +13,15 @@ public enum IO {
     LS(System.getProperty("line.separator")),
     FS(System.getProperty("file.separator"));
 
-    public String p;
+    public String s;
 
     private IO(String p) {
-        this.p = p;
+        this.s = p;
     }
 
     @Override
     public String toString() {
-        return "IO{" + "p=" + p + '}';
+        return s;
     }
 
 }
