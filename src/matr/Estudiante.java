@@ -3,7 +3,7 @@ package matr;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
+/**Diseño minimo basico de un estudiante.
  *
  * @author Jedabero
  */

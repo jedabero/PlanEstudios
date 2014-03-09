@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import matr.Asignatura;
-import matr.Nodo;
 import matr.Periodo;
 
 /**
@@ -22,8 +22,11 @@ public class PeriodPanel extends JPanel {
     public PeriodPanel(Periodo periodo, PlanPanel.Orientacion o) {
         super(new BorderLayout());
         this.periodo = periodo;
-        this.setToolTipText(periodo.getNombre());
+        setToolTipText(periodo.getNombre());
+
         JPanel center = new JPanel();
+        JScrollPane scrollView = new JScrollPane(center);
+
         JLabel description = new JLabel(periodo.getNombre(), JLabel.CENTER);
         StringBuilder foot = new StringBuilder("Total creditos: ");
         foot.append(periodo.getTotalCreditosMatriculados());
@@ -36,24 +39,26 @@ public class PeriodPanel extends JPanel {
 
         switch (o) {
             case HORIZONTAL:
-                int h = 110 * (periodo.getTotalAsignaturas() / 2 + 1);
-                setSize(150 + 150, h);
                 add(description, BorderLayout.NORTH);
+                int h = 110 * (periodo.getTotalAsignaturas() / 2 + 1);
+                center.setPreferredSize(new Dimension(320, h));
+                setSize(320, 550);
                 break;
             case VERTICAL:
-                setSize(150 * periodo.getTotalAsignaturas() + 150, 120);
                 add(description, BorderLayout.WEST);
+                int numero = (periodo.getTotalAsignaturas() / 2) + 1;
+                center.setPreferredSize(new Dimension(150 * numero, 120));
+                setSize(900, (periodo.getTotalAsignaturas() > 6) ? 240 : 120);
                 break;
         }
 
-        ArrayList<Asignatura> lista = periodo.getListaAsignaturas();
-        for (Asignatura x : lista) {
-            center.add(new AsignPanel(this, x), BorderLayout.CENTER);
+        for (Asignatura x : periodo.getListaAsignaturas()) {
+            center.add(new AsignPanel(this, x));
         }
 
-        add(center, BorderLayout.CENTER);
+        add(scrollView, BorderLayout.CENTER);
         setPreferredSize(new Dimension(getWidth() + 30, getHeight() + 30));
-        setBorder(BorderFactory.createLineBorder(Color.blue));
+        //setBorder(BorderFactory.createLineBorder(Color.blue));
     }
 
     public Periodo getPeriodo() {

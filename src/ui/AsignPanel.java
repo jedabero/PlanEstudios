@@ -35,7 +35,7 @@ public class AsignPanel extends JPanel implements MouseListener {
         super();
         setPreferredSize(new Dimension(150, 110));
         this.asign = a;
-        setBorder(BorderFactory.createLineBorder(Color.yellow));
+        setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
         tickLoc = new Point(120, txth);
         tick = new Polygon(

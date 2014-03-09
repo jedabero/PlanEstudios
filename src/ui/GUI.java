@@ -65,8 +65,8 @@ public class GUI {
 
         Plan plan = fp.getPlan().reorganizarAsignaturas();
 
-        ppanel = new PlanPanel(plan, PlanPanel.Orientacion.HORIZONTAL);
-        //ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
+        //ppanel = new PlanPanel(plan, PlanPanel.Orientacion.HORIZONTAL);
+        ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
         scroll = new JScrollPane(ppanel);
         mainFrame.getContentPane().add(scroll);
         mainFrame.revalidate();

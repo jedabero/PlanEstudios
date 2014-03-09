@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * Diseño basico de una asignatura.
  *
  * @author jedabero
  */
