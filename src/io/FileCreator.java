@@ -2,6 +2,7 @@ package io;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,16 +21,16 @@ public class FileCreator {
     public static final int OBJ = 1;
     public static final int TXT = 0;
 
-    public FileCreator(String pathName, Plan plan, int tipo) throws Exception {
+    public FileCreator(String pathName, Plan plan, int tipo) throws TipoArchivoIncorrectoException {
         this.plan = plan;
         switch (tipo) {
             case OBJ:
                 if (pathName.endsWith(IO.EXTO.s)) {
                     //Nada
                 } else if (pathName.endsWith(IO.EXT.s)) {
-                    throw new Exception("Tipo equivocado de archivo.");
+                    throw new TipoArchivoIncorrectoException("Tipo equivocado de archivo.");
                 } else if (pathName.lastIndexOf(".") > pathName.length() - 5) {
-                    throw new Exception("Tipo de extension equivocado.");
+                    throw new TipoArchivoIncorrectoException("Tipo de extension equivocado.");
                 } else {
                     pathName += IO.EXTO.s;
                 }
@@ -39,16 +40,16 @@ public class FileCreator {
                 if (pathName.endsWith(IO.EXT.s)) {
                     //Nada
                 } else if (pathName.endsWith(IO.EXTO.s)) {
-                    throw new Exception("Tipo equivocado de archivo.");
+                    throw new TipoArchivoIncorrectoException("Tipo equivocado de archivo.");
                 } else if (pathName.lastIndexOf(".") > pathName.length() - 5) {
-                    throw new Exception("Tipo de extension equivocado.");
+                    throw new TipoArchivoIncorrectoException("Tipo de extension equivocado.");
                 } else {
                     pathName += IO.EXT.s;
                 }
                 crearTexto(pathName);
                 break;
             default:
-                throw new Exception("Tipo incorrecto");
+                throw new TipoArchivoIncorrectoException();
         }
     }
 
@@ -75,10 +76,18 @@ public class FileCreator {
 
     }
 
-    private void crearObj(String pathName) throws IOException {
-        FileOutputStream fileOut = new FileOutputStream(pathName);
+    private void crearObj(String pathName) {
+        FileOutputStream fileOut;
+        try {
+            fileOut = new FileOutputStream(pathName);
+        } catch (FileNotFoundException ex) {
+            fileOut = null;
+            ex.printStackTrace(System.err);
+        }
         try (ObjectOutputStream salida = new ObjectOutputStream(fileOut)) {
             salida.writeObject(plan);
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
         }
     }
 
