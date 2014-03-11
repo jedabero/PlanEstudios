@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import matr.Asignatura;
-import matr.Estudiante;
+import matr.estudiante.Estudiante;
 import matr.Periodo;
 import matr.Plan;
 

@@ -1,5 +1,6 @@
 package matr;
 
+import matr.estudiante.Estudiante;
 import io.IO;
 import java.io.Serializable;
 import java.util.ArrayList;

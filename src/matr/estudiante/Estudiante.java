@@ -1,9 +1,10 @@
-package matr;
+package matr.estudiante;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-/**Diseño minimo basico de un estudiante.
+/**
+ * Diseño minimo basico de un estudiante.
  *
  * @author Jedabero
  */
@@ -28,13 +29,13 @@ public final class Estudiante implements Serializable {
         this.programa = programa;
     }
 
-    public Estudiante(String... a) throws Exception {
+    public Estudiante(String... a) throws NoSePuedeCrearEstudianteException {
         if (a.length > 2) {
             nombre = a[0];
             id = a[1];
             programa = a[2];
         } else {
-            throw new Exception("Array incompatible");
+            throw new NoSePuedeCrearEstudianteException();
         }
     }
 
