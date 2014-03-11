@@ -31,11 +31,14 @@ public class AsignPanel extends JPanel implements MouseListener {
     private final Color defaultColor;
 
     public AsignPanel(final PeriodPanel parent, Asignatura a) {
-        //super(parent, 400, 150, new Dimension(150, 110), new Dimension(210, 170));
         super();
         setPreferredSize(new Dimension(150, 110));
         this.asign = a;
-        setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        if (GUI.debugMode) {
+            setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+        } else {
+            setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
 
         tickLoc = new Point(120, txth);
         tick = new Polygon(

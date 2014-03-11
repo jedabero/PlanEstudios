@@ -23,7 +23,9 @@ public class PlanPanel extends JPanel {
 
     public PlanPanel(Plan plan, Orientacion o) {
         super(new BorderLayout());
-        //this.setBorder(BorderFactory.createLineBorder(Color.green));
+        if (GUI.debugMode) {
+            setBorder(BorderFactory.createLineBorder(Color.green));
+        }
 
         JPanel center = new JPanel();
         StringBuilder desc = new StringBuilder(plan.getEstudiante().toString());

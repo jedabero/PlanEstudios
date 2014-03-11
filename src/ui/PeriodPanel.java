@@ -58,7 +58,11 @@ public class PeriodPanel extends JPanel {
 
         add(scrollView, BorderLayout.CENTER);
         setPreferredSize(new Dimension(getWidth() + 30, getHeight() + 30));
-        //setBorder(BorderFactory.createLineBorder(Color.blue));
+        
+        if (GUI.debugMode) {
+            setBorder(BorderFactory.createLineBorder(Color.blue));
+        }
+        
     }
 
     public Periodo getPeriodo() {

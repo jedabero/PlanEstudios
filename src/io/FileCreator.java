@@ -1,8 +1,5 @@
 package io;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -77,14 +74,7 @@ public class FileCreator {
     }
 
     private void crearObj(String pathName) {
-        FileOutputStream fileOut;
-        try {
-            fileOut = new FileOutputStream(pathName);
-        } catch (FileNotFoundException ex) {
-            fileOut = null;
-            ex.printStackTrace(System.err);
-        }
-        try (ObjectOutputStream salida = new ObjectOutputStream(fileOut)) {
+        try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(pathName))) {
             salida.writeObject(plan);
         } catch (IOException ex) {
             ex.printStackTrace(System.err);

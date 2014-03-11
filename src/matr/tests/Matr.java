@@ -1,4 +1,4 @@
-package matr;
+package matr.tests;
 
 import io.FileParser;
 import io.IO;

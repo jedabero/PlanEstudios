@@ -25,6 +25,8 @@ public class GUI {
 
     public static final String matrDir = IO.USER.s + IO.FS.s + "matr" + IO.FS.s;
 
+    public static boolean debugMode = false;
+    
     public static void main(String[] args) {
         GUI gui = new GUI();
         gui.start();
