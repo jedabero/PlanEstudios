@@ -2,6 +2,7 @@ package ui.editores;
 
 import matr.Asignatura;
 import matr.Periodo;
+import matr.Plan;
 
 /**
  *
@@ -9,8 +10,8 @@ import matr.Periodo;
  */
 public class AsignaturaEditor extends javax.swing.JPanel {
 
-    private final Periodo p;
-    private Asignatura a;
+    private Plan plan;
+    private Asignatura asign;
 
     /**
      * Creates new form AsignaturaEditor.
@@ -20,9 +21,9 @@ public class AsignaturaEditor extends javax.swing.JPanel {
      * @param a asignatura a editar
      * @param p en el que está situado la asigantura.
      */
-    public AsignaturaEditor(Asignatura a, Periodo p) {
-        this.a = a;
-        this.p = p;
+    public AsignaturaEditor(Asignatura a, Plan p) {
+        this.asign = a;
+        this.plan = p;
         initComponents();
         if (null != a) {
             txtNombre.setText(a.getNombre());
@@ -39,10 +40,25 @@ public class AsignaturaEditor extends javax.swing.JPanel {
 
     }
 
-    public AsignaturaEditor(Periodo p) {
+    public AsignaturaEditor(Plan p) {
         this(null, p);
     }
 
+    public void simpleClean() {
+        txtNombre.setText("");
+        txtCodigo.setText("");
+        txtNota.setText("");
+        txtReq.setText("");
+        txtCoreq.setText("");
+    }
+
+    public void clean() {
+        simpleClean();
+        jsCreditos.setValue(1);
+        txtPeriodo.setText("");
+        txtNivel.setText("");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,18 +188,20 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         String cor = txtCoreq.getText();
         Asignatura areq = null;
         Asignatura acor = null;
+
+        Periodo p = plan.buscarPeriodoPorNombre(per);
         if (null != p) {
-            areq = (null == p.getPlan().buscarPeriodoAnteriorA(p)) ? null : p.getPlan().buscarAsignaturaPorCodigo(req);
+            areq = (null == plan.buscarPeriodoAnteriorA(p)) ? null : plan.buscarAsignaturaPorCodigo(req);
             acor = (p.vacio()) ? null : p.buscarAsignaturaPorCodigo(cor);
         }
 
         int cre = (int) jsCreditos.getValue();
         double not = Double.parseDouble(txtNota.getText());
 
-        boolean m = (null != a) ? a.isMatriculada() : false;
-        a = new Asignatura(nom, cod, cre, per, niv, areq, acor, not);
-        a.setMatriculada(m);
-        return a;
+        boolean m = (null != asign) ? asign.isMatriculada() : false;
+        asign = new Asignatura(nom, cod, cre, per, niv, areq, acor, not);
+        asign.setMatriculada(m);
+        return asign;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

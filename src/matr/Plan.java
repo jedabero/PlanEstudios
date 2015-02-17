@@ -51,6 +51,20 @@ public class Plan implements Serializable {
         listaPeriodos.add(p);
     }
 
+    public void agregarAsignatura(Asignatura a) {
+        String nomP = a.getPeriodo();
+        Periodo p = buscarPeriodoPorNombre(nomP);
+        if(null != p) {
+            p.agregar(a);
+        } else {
+            String per = !nomP.isEmpty() ? nomP : a.getNivel();
+            p = new Periodo(per, this);
+            p.agregar(a);
+            agregar(p);
+        }
+        
+    }
+    
     public Plan periodosConCreditos(int c) {
         Plan lista = new Plan();
         for (Periodo x : listaPeriodos) {

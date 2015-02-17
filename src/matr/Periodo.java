@@ -16,10 +16,6 @@ public class Periodo implements Serializable {
 
     private final Plan plan;
 
-    public ArrayList<Asignatura> getListaAsignaturas() {
-        return listaAsignaturas;
-    }
-
     private final String nombre;
 
     public Periodo() {
@@ -92,6 +88,10 @@ public class Periodo implements Serializable {
         return promedio;
     }
 
+    public ArrayList<Asignatura> getListaAsignaturas() {
+        return listaAsignaturas;
+    }
+    
     public String getNombre() {
         return nombre;
     }

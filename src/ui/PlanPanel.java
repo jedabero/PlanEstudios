@@ -28,8 +28,8 @@ public class PlanPanel extends JPanel {
         }
 
         JPanel center = new JPanel();
-        StringBuilder desc = new StringBuilder(plan.getEstudiante().toString());
-        JLabel description = new JLabel(desc.toString(), JLabel.CENTER);
+        String desc = plan.getEstudiante().toString();
+        JLabel description = new JLabel(desc, JLabel.CENTER);
         add(description, BorderLayout.NORTH);
 
         StringBuilder foot = new StringBuilder("Total creditos: ");

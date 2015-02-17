@@ -32,7 +32,7 @@ public class AsignPanel extends JPanel implements MouseListener {
 
     public AsignPanel(final PeriodPanel parent, Asignatura a) {
         super();
-        setPreferredSize(new Dimension(150, 110));
+        setPreferredSize(new Dimension(150, 120));
         this.asign = a;
         if (GUI.debugMode) {
             setBorder(BorderFactory.createLineBorder(Color.YELLOW));
@@ -40,7 +40,7 @@ public class AsignPanel extends JPanel implements MouseListener {
             setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
-        tickLoc = new Point(120, txth);
+        tickLoc = new Point(125, txth);
         tick = new Polygon(
                 new int[]{tickLoc.x + 1, tickLoc.x + 3, tickLoc.x + 6, tickLoc.x + 14, tickLoc.x + 16, tickLoc.x + 6},
                 new int[]{tickLoc.y + 8, tickLoc.y + 6, tickLoc.y + 9, tickLoc.y + 1, tickLoc.y + 3, tickLoc.y + 13},
@@ -99,11 +99,12 @@ public class AsignPanel extends JPanel implements MouseListener {
         g2d.drawString(cred, 30 + getStringLen(cod), txth);
 
         String nom = asign.getNombre();
-        int y = getHeight() / 2 - txth;
+        int y = getHeight() / 2 - 2*txth;
         int lineLen = getStringLen(nom);
 
         if (lineLen > getWidth()) {
             int mid = nom.indexOf(" ", nom.indexOf(" ") + 1);
+            mid = (mid == -1) ? nom.indexOf(" ") : mid;
             String nom1 = nom.substring(0, mid);
             int len1 = getStringLen(nom1);
             g2d.drawString(nom1, (getWidth() / 2) - (len1 / 2), y);
@@ -125,7 +126,7 @@ public class AsignPanel extends JPanel implements MouseListener {
             g2d.drawString("Coreq.: " + asign.getCorequisito().getCodigo(), 5, y += txth);
         }
         g2d.drawString("Periodo: " + asign.getPeriodo(), 5, y += txth);
-        g2d.drawString("Nivel: " + asign.getNivel(), 90, y);
+        g2d.drawString("Nivel: " + asign.getNivel(), 5, y += txth);
 
     }
 

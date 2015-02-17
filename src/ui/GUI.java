@@ -3,6 +3,7 @@ package ui;
 import io.FileCreator;
 import io.FileParser;
 import io.IO;
+import io.TipoArchivoIncorrectoException;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.io.IOException;
@@ -67,14 +68,14 @@ public class GUI {
 
         Plan plan = fp.getPlan().reorganizarAsignaturas();
 
-        //ppanel = new PlanPanel(plan, PlanPanel.Orientacion.HORIZONTAL);
-        ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
+        ppanel = new PlanPanel(plan, PlanPanel.Orientacion.HORIZONTAL);
+        //ppanel = new PlanPanel(fp.getPlan(), PlanPanel.Orientacion.VERTICAL);
         scroll = new JScrollPane(ppanel);
         mainFrame.getContentPane().add(scroll);
         mainFrame.revalidate();
         try {
             FileCreator fc = new FileCreator(fppath, plan, 0);
-        } catch (Exception ex) {
+        } catch (TipoArchivoIncorrectoException ex) {
         }
     }
 
