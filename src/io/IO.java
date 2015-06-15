@@ -15,7 +15,7 @@ public enum IO {
 
     public String s;
 
-    private IO(String p) {
+    IO(String p) {
         this.s = p;
     }
 

@@ -18,7 +18,7 @@ public class PlanPanel extends JPanel {
     public enum Orientacion {
 
         VERTICAL,
-        HORIZONTAL;
+        HORIZONTAL
     }
 
     public PlanPanel(Plan plan, Orientacion o) {

@@ -173,7 +173,7 @@ public class AsignaturaEditor extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public Asignatura getA() throws Exception, NumberFormatException, NullPointerException {
+    public Asignatura getA() throws Exception, NullPointerException {
         String nom = txtNombre.getText();
         if (nom.isEmpty()) {
             throw new Exception("Nombre no puede ser vacio.");

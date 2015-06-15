@@ -60,7 +60,7 @@ public class NewClass {
     }
 
     public static void main1(String[] args)
-            throws FileNotFoundException, IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         FileParser fp = new FileParser(GUI.matrDir + "asd.pln");
 
         FileOutputStream fileOut = new FileOutputStream(GUI.matrDir + "media2.obj");
